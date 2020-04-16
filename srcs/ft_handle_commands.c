@@ -132,7 +132,7 @@ void		ft_handlecommands(char *cmd)
             //printf("%s\n", (char*)hi->keys->data);
             ft_createargs(
                 ft_getabsolute_path((char*)hi->keys->data, &bultin),
-                get_cmd(hi->full_command, "");
+                get_cmd(hi->full_command, "")
             );
 			hi->keys = hi->keys->next;
 		}
