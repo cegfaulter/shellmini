@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 16:57:03 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/02/12 16:21:18 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/03/09 03:28:31 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include <stdlib.h>
 
-void		set(char *to_split, char c, char *ignored);
+void		set(char *to_split, char c, char *ignored, char sp);
 char		**ft_csplit(char *s, char c, char *ignored);
 #endif

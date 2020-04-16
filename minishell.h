@@ -38,6 +38,7 @@ typedef struct	s_minishell
 	t_list		*list_args;
 	char		**path_env;
 	char		**updated_env;
+    short int   error_detected;
 }				t_minishell;
 
 typedef struct	s_keyval
@@ -55,14 +56,16 @@ typedef struct	s_command_attr
 typedef struct	s_command
 {
 	char		**command;
-	int			saveit;
-	char		*filename;
-	int			mode;
-	char		*inputfilename;
-	int			inputfile;
+	int			save;
+	t_list      *files;
 	int			builtins;
-	short int	errodetected;
 }				t_command;
+
+typedef struct	s_files
+{
+	char        *filename;
+    short int   mode; // 0 input - 1 write override - 2 write append
+}				t_files;
 
 typedef struct	s_dirent {
 	ino_t			d_ino;
@@ -74,6 +77,7 @@ typedef struct	s_dirent {
 
 t_minishell		g_data;
 t_command_attr	g_args;
+char			**g_v_args;
 
 void			ft_commands_line(void);
 void			ft_free_split(char ***data);
@@ -97,5 +101,6 @@ void			update_env_global_variable(void);
 char			*ft_join_char_str(char *str, char ch);
 void			update_print_env(int c);
 void			ft_pwd(int c);
+char	        *ft_getabsolute_path(char *command, int *builtins);
 
 #endif

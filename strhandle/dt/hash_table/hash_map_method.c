@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hash_map_method.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 15:18:24 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/02/12 18:06:52 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/02/12 16:12:47 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../command_recognizer/recognizer.h"
+#include "hash_map.h"
 
 t_cmap			*init_map(void)
 {

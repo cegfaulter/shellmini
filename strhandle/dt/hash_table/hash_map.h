@@ -6,13 +6,13 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 15:15:36 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/02/12 16:08:54 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/03/09 00:51:51 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASH_MAP_H
 # define HASH_MAP_H
-# define SIZE 31
+# define SIZE 51
 
 # include "../linkedlist/linkedlist.h"
 

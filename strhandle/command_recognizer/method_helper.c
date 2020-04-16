@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:50:03 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/02/12 16:25:53 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/03/11 09:01:49 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int			ft_cstrlen(const char *s)
 	int		len;
 
 	len = 0;
+	if (!s)
+		return (0);
 	while (s[len])
 		len++;
 	return (len);
@@ -65,13 +67,26 @@ char		*ft_cstrjoin(char *text, char *s)
 	len2 = (s) ? ft_cstrlen(s) : 0;
 	new_text = malloc(sizeof(char) * (len1 + len2 + 1));
 	ft_cstrcpy(new_text, text, len1);
-	if (len1 && len2)
-	{
-		ft_cstrcpy(new_text + len1, " ", 1);
-		len1++;
-	}
 	ft_cstrcpy(new_text + len1, s, len2);
 	free(text);
 	free(s);
 	return (new_text);
+}
+
+char		*ft_cstrdup(char *str)
+{
+	char		*s;
+	int			iter;
+
+	if (!str)
+		return (NULL);
+	s = malloc(sizeof(char) * (ft_cstrlen(str) + 1));
+	iter = 0;
+	while (str[iter] != '\0')
+	{
+		s[iter] = str[iter];
+		iter++;
+	}
+	s[iter] = 0;
+	return (s);
 }

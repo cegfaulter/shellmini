@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+/*
 void		ft_writeintofile(int fd, char *filename, int mode)
 {
 	char	*line;
@@ -115,7 +115,7 @@ void		ft_print_multipiperesult(void)
 		}
 		tmp_args = tmp_args->next;
 	}
-}
+}*/
 
 
 // int		main(void)

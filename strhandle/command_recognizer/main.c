@@ -6,12 +6,13 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 19:05:21 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/02/12 16:20:57 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/03/08 23:28:49 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "recognizer.h"
 
+/*
 void		display_map(t_cmap *map)
 {
 	t_clist		*keys;
@@ -32,7 +33,7 @@ void		display_map(t_cmap *map)
 
 int			main(void)
 {
-	char		*str = "\"bin\"\"/echo\" blablabla >> \"file1  makaine\" maidare > file2 ejdj | grep > file | b > ile";
+	char		*str = "echo text >file2             >file3";
 	t_cmap		*cmd_data;
 	t_clist		*keys;
 
@@ -40,3 +41,4 @@ int			main(void)
 	display_map(cmd_data);
 	return (0);
 }
+*/

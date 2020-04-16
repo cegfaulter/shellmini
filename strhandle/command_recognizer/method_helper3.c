@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   method_helper3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-omar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 21:15:15 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/02/11 21:16:02 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/03/11 03:35:07 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,8 @@ t_rec		*init_rec(void)
 	rec = malloc(sizeof(t_rec));
 	rec->files = NULL;
 	rec->oper = NULL;
-	rec->text = malloc(sizeof(char));
-	rec->text[0] = 0;
+	rec->text = NULL;
 	return (rec);
-}
-
-void		init_condition(int *cond, int size, char *c)
-{
-	int		iter;
-
-	iter = 0;
-	while (iter < size)
-	{
-		cond[iter] = 0;
-		iter++;
-	}
-	*c = 0;
 }
 
 void		display_data(void *data)
@@ -52,6 +38,6 @@ void		print_rec(t_rec *rec)
 	iterate_list(rec->files, display_data);
 	print("\n");
 	print("texts-----------------------------------------\n");
-	print("%s", rec->text);
+	iterate_list(rec->text, display_data);
 	print("\n**********************************************\n");
 }

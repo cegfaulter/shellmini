@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 19:33:02 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/02/12 16:21:31 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/03/09 02:33:48 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,9 @@ static int			words(char *s, char c, char *n)
 	to_split = 0;
 	while (s[++iter])
 	{
-		set(&to_split, s[iter], n);
-		if (!to_split && s[iter] == c)
-		{
+		set(&to_split, s[iter], n, c);
+		if ((!to_split && s[iter] == c))
 			locked = 1;
-			continue ;
-		}
 		if (locked)
 		{
 			count++;
@@ -49,7 +46,7 @@ static int			count_length(char *s, char c, char *n, int *start)
 	to_split = 0;
 	while (s[iter + *start])
 	{
-		set(&to_split, s[iter + *start], n);
+		set(&to_split, s[iter + *start], n, c);
 		if (!to_split && s[iter + *start] == c)
 			break ;
 		iter++;

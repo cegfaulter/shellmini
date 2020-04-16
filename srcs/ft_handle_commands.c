@@ -39,23 +39,107 @@ int			ft_split_length(char **data_splitted)
 	return (i);
 }
 
+char        **ft_list_to_arr(t_clist *list, char *cmd)
+{
+    char    **commands;
+    int     i;
+    t_clist *tmp;
+
+    i = 1;
+    commands = (char**)malloc(sizeof(char*) * (ft_lstsize((t_list*)list) + 2));
+    commands[0] = ft_strdup(cmd);
+    tmp = list;
+    while (tmp)
+    {
+        commands[i++] = ft_strdup((char*)tmp->data);
+        tmp = tmp->next;
+    }
+    commands[i] = 0;
+    return (commands);
+}
+
+int         ft_strcmp(char *s1, char *s2)
+{
+    while (*s1 && *s2)
+    {
+        if (*s1 != *s2)
+            return (*s1 - *s2);
+        s1++;
+        s2++;
+    }
+    if (*s1 == '\0' && *s2 == '\0')
+        return (0);
+    return (*s1 - *s2);
+}
+
+void        ft_putfiles(t_rec *list, t_command *cmd)
+{
+    t_clist     *tmp_file;
+    t_clist     *tmp_operator;
+    t_files     *file;
+
+    if (ft_lstsize((t_list*)list->files) != ft_lstsize((t_list*)list->oper))
+        g_data.error_detected = 1;
+    else
+    {
+        cmd->files = NULL;
+        tmp_file = (t_clist*)list->files;
+        tmp_operator = (t_clist*)list->oper;
+        while (tmp_file && tmp_operator)
+        {
+            file = (t_files*)malloc(sizeof(t_files) * 1);
+            file->filename = (char*)tmp_file->data;
+            if (ft_strcmp((char*)tmp_operator->data, ">") == 0)
+                file->mode = 1;
+            else if(ft_strcmp((char*)tmp_operator->data, ">>") == 0)
+                file->mode = 2;
+            else
+                file->mode = 0;
+            ft_lstadd_back(&(cmd->files), ft_lstnew(file));
+            tmp_file = tmp_file->next;
+            tmp_operator = tmp_operator->next;
+        }
+    }
+}
+
+void        ft_createargs(char *cmd, t_rec *cmd_param)
+{
+    t_command   *entirecommand;
+
+    entirecommand = (t_command*)malloc(sizeof(t_command) * 1);
+    entirecommand->command = ft_list_to_arr(cmd_param->text, cmd);
+    ft_putfiles(cmd_param, entirecommand);
+    //printf("%s\n", entirecommand->command[0]);
+}
+
 void		ft_handlecommands(char *cmd)
 {
-	t_cmap		*cmds;
-	t_clist		*iter_key;
-	t_clist		*keys;
-	t_rec		*rec;
+	char        **sp;
+    int         iter;
+    t_clist     *lst = NULL;
+    t_clist     *all = NULL;
+    t_ccommand  *hi;
+    t_rec       *cmd_param;
+    int         bultin;
 
-	cmds = get_cmd_data(cmd);
-	keys = get_keys(cmds);
-	iter_key = keys;
-	while (iter_key)
+	all = all_commands(cmd, g_v_args);
+    bultin = 0;
+	while (all)
 	{
-		print("key = %s\n", (char *)iter_key->data);
-		rec = get_cdata(cmds, (char *)iter_key->data);
-		print_rec(rec);
-		iter_key = iter_key->next;
+		hi = (t_ccommand *)all->data;
+		while (hi->keys)
+		{
+            //printf("%s\n", (char*)hi->keys->data);
+            ft_createargs(
+                ft_getabsolute_path((char*)hi->keys->data, &bultin),
+                get_cmd(hi->full_command, "");
+            );
+			hi->keys = hi->keys->next;
+		}
+		all = all->next;
+		iter++;
 	}
+	free_all_commands(&lst);
 }
 
 void		ft_commands_line(void)
