@@ -137,20 +137,18 @@ void		ft_handlecommands(char *cmd)
 	while (all)
 	{
 		hi = (t_ccommand *)all->data;
+        g_data.list_args = NULL;
 		while (hi->keys)
 		{
-            g_data.list_args = NULL;
             ft_createargs(
                 ft_getabsolute_path((char*)hi->keys->data, &bultin),
                 get_cmd(hi->full_command, (char*)hi->keys->data),
                 &bultin
             );
-            ft_print_multipiperesult();
-            printf("hello\n");
 			hi->keys = hi->keys->next;
 		}
+        ft_print_multipiperesult();
 		all = all->next;
-		iter++;
 	}
 	free_all_commands(&lst);
 }

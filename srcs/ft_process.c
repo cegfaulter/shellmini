@@ -43,11 +43,13 @@ char    *ft_read_current_fd(int fd)
     char    *line;
     int     i = 1;
 
-    data = "."; // DOn't forget this shit
     while (i > 0)
     {
         i = get_next_line(fd, &line);
-        data = ft_strjoin(data, line);
+        if (data == NULL)
+            data = ft_strjoin("", line);
+        else
+            data = ft_strjoin(data, line);
         if (i > 0)
             data = ft_strjoin(data, "\n");
         free(line);
@@ -64,6 +66,8 @@ void        ft_read_from_input(t_list *list)
     {
         if (((t_files*)tmp->content)->mode == 0 && tmp->next == NULL)
             dup2(((t_files*)tmp->content)->fd, 0);
+        else if ((((t_files*)tmp->content)->mode == 1 || ((t_files*)tmp->content)->mode == 2) && tmp->next == NULL)
+            dup2(((t_files*)tmp->content)->fd, 1);
         else
             close(((t_files*)tmp->content)->fd);
         tmp = tmp->next;
@@ -80,17 +84,17 @@ void		ft_print_multipiperesult(void)
 
 	tmp_args = g_data.list_args;
     data = NULL;
+    fd = 0;
 	while (tmp_args)
 	{
 		pipe(pipefd);
 		pid = fork();
 		if (pid == 0)
 		{
+            dup2(fd, 0);
+            if (tmp_args->next != NULL)
+                dup2(pipefd[1], 1);
             ft_read_from_input(((t_command*)tmp_args->content)->files);
-            if (data != NULL)
-                write(0, data + 1, ft_strlen(data) - 1);
-            //if (tmp_args->next != NULL)
-            dup2(pipefd[1], 1);
             if (((t_command*)tmp_args->content)->builtins >= 1)
             {   
                 //ft_runrightcmd(((t_command*)tmp_args->content), 1);
@@ -101,12 +105,14 @@ void		ft_print_multipiperesult(void)
                 execve(((t_command*)tmp_args->content)->command[0],
 				((t_command*)tmp_args->content)->command, g_data.envp);
             }
+            close(fd);
+            close(pipefd[1]);
+            close(pipefd[0]);
 			exit(0);
 		}
 		wait(NULL);
 		close(pipefd[1]);
-        data = ft_read_current_fd(pipefd[0]);
-        //printf("%s\n", ((t_command*)tmp_args->next->content)->command[0]);
+        fd = dup(pipefd[0]);
         close(pipefd[0]);
 		tmp_args = tmp_args->next;
 	}
