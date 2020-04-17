@@ -90,11 +90,20 @@ void        ft_putfiles(t_rec *list, t_command *cmd)
             file = (t_files*)malloc(sizeof(t_files) * 1);
             file->filename = (char*)tmp_file->data;
             if (ft_strcmp((char*)tmp_operator->data, ">") == 0)
+            {
                 file->mode = 1;
+                file->fd = open(file->filename, O_WRONLY | O_CREAT | O_TRUNC, 00700);
+            }
             else if(ft_strcmp((char*)tmp_operator->data, ">>") == 0)
+            {
                 file->mode = 2;
+                file->fd = open(file->filename, O_WRONLY | O_CREAT | O_APPEND, 00700);
+            }
             else
+            {
                 file->mode = 0;
+                file->fd = open(file->filename, O_RDONLY);
+            }
             ft_lstadd_back(&(cmd->files), ft_lstnew(file));
             tmp_file = tmp_file->next;
             tmp_operator = tmp_operator->next;
@@ -102,14 +111,15 @@ void        ft_putfiles(t_rec *list, t_command *cmd)
     }
 }
 
-void        ft_createargs(char *cmd, t_rec *cmd_param)
+void        ft_createargs(char *cmd, t_rec *cmd_param, int *builtin)
 {
     t_command   *entirecommand;
 
     entirecommand = (t_command*)malloc(sizeof(t_command) * 1);
     entirecommand->command = ft_list_to_arr(cmd_param->text, cmd);
     ft_putfiles(cmd_param, entirecommand);
-    //printf("%s\n", entirecommand->command[0]);
+    entirecommand->builtins = *builtin;
+    ft_lstadd_back(&(g_data.list_args), ft_lstnew(entirecommand));
 }
 
 void		ft_handlecommands(char *cmd)
@@ -129,11 +139,14 @@ void		ft_handlecommands(char *cmd)
 		hi = (t_ccommand *)all->data;
 		while (hi->keys)
 		{
-            //printf("%s\n", (char*)hi->keys->data);
+            g_data.list_args = NULL;
             ft_createargs(
                 ft_getabsolute_path((char*)hi->keys->data, &bultin),
-                get_cmd(hi->full_command, "")
+                get_cmd(hi->full_command, (char*)hi->keys->data),
+                &bultin
             );
+            ft_print_multipiperesult();
+            printf("hello\n");
 			hi->keys = hi->keys->next;
 		}
 		all = all->next;
@@ -151,13 +164,13 @@ void		ft_commands_line(void)
 
 	if (*(g_data.line) == 0 && g_data.gnl_return == 0)
 		ft_ctrl_d();
-	splite_cmds = ft_split(g_data.line, ';');
-	lengthcmds = ft_split_length(splite_cmds);
-	i = 0;
-	while (i < lengthcmds)
-	{
-		ft_handlecommands(splite_cmds[i]);
-		i++;
-	}
-	ft_free_split(&splite_cmds);
+	//splite_cmds = ft_split(g_data.line, ';');
+	//lengthcmds = ft_split_length(splite_cmds);
+	//i = 0;
+	//while (i < lengthcmds)
+	//{
+	ft_handlecommands(g_data.line);
+	//	i++;
+	//}
+	//ft_free_split(&splite_cmds);
 }

@@ -65,6 +65,7 @@ typedef struct	s_files
 {
 	char        *filename;
     short int   mode; // 0 input - 1 write override - 2 write append
+    int         fd;
 }				t_files;
 
 typedef struct	s_dirent {

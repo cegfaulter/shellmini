@@ -113,6 +113,7 @@ void       add_command(char *cmd, t_cmap *mp, t_cmap *global_vars, t_clist **lst
     int     is_found;
 
     value = NULL;
+    key = NULL;
     is_found = 0;
     i = 0;
     while (cmd[i] == ' ')
@@ -126,8 +127,8 @@ void       add_command(char *cmd, t_cmap *mp, t_cmap *global_vars, t_clist **lst
         }
         value = join_rec(value, handle_command(cmd, global_vars, &i, is_found));
     }
-    if (!is_found)
-        key = "CREATE_FILE";
+    if (!key)
+        key = "";
     set_cmd(mp, key, value);
     append(lst, key);
 }
