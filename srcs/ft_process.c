@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void		ft_writeintofile(int fd, char *filename, int mode)
+/*void		ft_writeintofile(int fd, char *filename, int mode)
 {
 	char	*line;
 	int		fdfile;
@@ -35,7 +35,7 @@ void		ft_writeintofile(int fd, char *filename, int mode)
 		}
 		close(fdfile);
 	}
-}
+}*/
 
 char    *ft_read_current_fd(int fd)
 {
@@ -102,8 +102,14 @@ void		ft_print_multipiperesult(void)
             }
             else
             {
-                execve(((t_command*)tmp_args->content)->command[0],
-				((t_command*)tmp_args->content)->command, g_data.envp);
+                if (execve(((t_command*)tmp_args->content)->command[0],
+				((t_command*)tmp_args->content)->command, g_data.envp) == -1)
+                {
+                    ft_putstr_fd("Minishell: ", 2);
+                    ft_putstr_fd(((t_command*)tmp_args->content)->command[0], 2);
+                    ft_putstr_fd(": command not found\n", 2);
+                }
+                    
             }
             close(fd);
             close(pipefd[1]);

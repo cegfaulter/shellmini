@@ -148,8 +148,6 @@ void		ft_handlecommands(char *cmd)
                 get_cmd(hi->full_command, (char*)hi->keys->data),
                 &bultin
             );
-            if (bultin == -1)
-                g_data.error_detected = 1;
 			hi->keys = hi->keys->next;
 		}
         if (!g_data.error_detected)
