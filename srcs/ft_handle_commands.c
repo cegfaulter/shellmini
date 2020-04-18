@@ -104,6 +104,8 @@ void        ft_putfiles(t_rec *list, t_command *cmd)
                 file->mode = 0;
                 file->fd = open(file->filename, O_RDONLY);
             }
+            if (file->fd == -1)
+                g_data.error_detected = 1;
             ft_lstadd_back(&(cmd->files), ft_lstnew(file));
             tmp_file = tmp_file->next;
             tmp_operator = tmp_operator->next;
@@ -138,6 +140,7 @@ void		ft_handlecommands(char *cmd)
 	{
 		hi = (t_ccommand *)all->data;
         g_data.list_args = NULL;
+        g_data.error_detected = 0;
 		while (hi->keys)
 		{
             ft_createargs(
@@ -145,9 +148,14 @@ void		ft_handlecommands(char *cmd)
                 get_cmd(hi->full_command, (char*)hi->keys->data),
                 &bultin
             );
+            if (bultin == -1)
+                g_data.error_detected = 1;
 			hi->keys = hi->keys->next;
 		}
-        ft_print_multipiperesult();
+        if (!g_data.error_detected)
+            ft_print_multipiperesult();
+        else
+            printf("Minishell: %s\n", strerror(errno));
 		all = all->next;
 	}
 	free_all_commands(&lst);
