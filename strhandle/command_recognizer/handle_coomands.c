@@ -51,6 +51,7 @@ void    copy(t_clist **a, t_clist *b)
         b = b->next;
     }
 }
+
 t_rec       *join_rec(t_rec *rec1, t_rec *rec2)
 {
     t_rec   *rec;
@@ -105,46 +106,44 @@ t_rec       *handle_command(char *str, t_cmap *map, int *iter, int is_found)
     return (rec);
 }
 
-void       add_command(char *cmd, t_cmap *mp, t_cmap *global_vars, t_clist **lst)
+void       add_command(char *cmd, t_clist **lst, t_cmap *global_vars)
 {
-    char    *key;
-    t_rec   *value;
-    int     i;
-    int     is_found;
+    int             i;
+    int             is_found;
+    t_ccommand      *command;
 
-    value = NULL;
-    key = NULL;
     is_found = 0;
     i = 0;
+    command = malloc(sizeof(t_ccommand));
+    command->cmd = NULL;
+    command->data = NULL;
     while (cmd[i] == ' ')
         i++;
     while (!is_found)
     {
         if (!in_set(cmd[i], "><"))
         {
-            key =  get_command(cmd, &i, global_vars);
+            command->cmd =  get_command(cmd, &i, global_vars);
             is_found = 1;
         }
-        value = join_rec(value, handle_command(cmd, global_vars, &i, is_found));
+        command->data = join_rec(command->data,
+        handle_command(cmd, global_vars, &i, is_found));
     }
-    if (!key)
-        key = "";
-    set_cmd(mp, key, value);
-    append(lst, key);
+    append(lst, command);
 }
 
-t_cmap      *get_command_line(char *cmd, t_cmap *global_vars, t_clist **lst)
+t_clist      *get_command_line(char *cmd, t_cmap *global_vars)
 {
-    t_cmap      *all_cmds;
-    char        **commands;
-    int         iter;
+    t_clist         *all_cmds;
+    char            **commands;
+    int             iter;
 
-    all_cmds = init_map();
+    all_cmds = NULL;
     commands = csplit(cmd,'|');
     iter = 0;
     while (commands[iter])
     {
-        add_command(commands[iter], all_cmds, global_vars, lst);
+        add_command(commands[iter], &all_cmds, global_vars);
         iter++;
     }
     free_split(&commands);

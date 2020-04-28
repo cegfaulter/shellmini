@@ -22,27 +22,14 @@ void		free_rec(t_rec **rec)
 	}
 }
 
-void		free_keys_rec(void *k_v)
-{
-	t_rec			*value;
-	char			*key;
-	t_key_value		*key_value;
-
-	key_value = (t_key_value *)k_v; 
-	key  = (char *)key_value->key;
-	value = (t_rec *)key_value->value;
-	free(key);
-	free_rec(&value);
-	free(key_value);
-}
-
 void	 free_ccommand(void *cmd)
 {
 	t_ccommand *command;
 
 	command = (t_ccommand *)cmd;
-	free(command->keys);
-	clear_map(&command->full_command, free_keys_rec);
+	free(command->cmd);
+	free_rec(&command->data);
+	free(command);
 }
 
 void	free_vars(void *vars)
@@ -57,5 +44,15 @@ void	free_vars(void *vars)
 
 void	free_all_commands(t_clist **lst)
 {
-	clear_list(lst, free_ccommand);
+	t_clist 	*list;
+
+	if (*lst)
+	{
+		if ((*lst)->next)
+			free_all_commands(&(*lst)->next);
+		list = (t_clist *)(*lst)->data;
+		clear_list(&list, free_ccommand);
+		free(*lst);
+		*lst = NULL;
+	}
 }

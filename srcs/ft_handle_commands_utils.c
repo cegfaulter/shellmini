@@ -146,7 +146,7 @@ char	*ft_getabsolute_path(char *command, int *builtins)
 	return (command);
 }
 
-/*void	ft_handle_command_args(char **command, int *builtins)
+void	ft_handle_command_args(char **command, int *builtins)
 {
 	int		i;
 
@@ -163,4 +163,4 @@ char	*ft_getabsolute_path(char *command, int *builtins)
 		i++;
 	}
 	command[0] = ft_getabsolute_path(command[0], builtins);
-}*/
+}

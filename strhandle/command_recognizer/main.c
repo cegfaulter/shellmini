@@ -30,7 +30,6 @@ void		display_map(t_cmap *map)
 	}
 	free_keys(&keys);
 }
-
 int			main(void)
 {
 	char		*str = "echo text >file2             >file3";

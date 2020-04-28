@@ -20,18 +20,18 @@
 # include "../gnl/get_next_line.h" 
 # include <stdlib.h>
 
-typedef struct  s_ccommand
-{
-    t_clist     *keys;
-    t_cmap      *full_command;
-}               t_ccommand;
-
 typedef struct	s_rec
 {
 	t_clist		*text;
 	t_clist		*files;
 	t_clist		*oper;
 }				t_rec;
+
+typedef struct  s_ccommand
+{
+	char		*cmd;
+    t_rec		*data;
+}               t_ccommand;
 
 t_rec			*init_rec();
 int				in_set(char c, char *set);
@@ -55,21 +55,17 @@ void			free_rec(t_rec **rec);
 int      		var_len(char *str, int *iter, t_cmap *map);
 char			*get(t_cmap *map, const char *key);
 void			setv(t_cmap *map, const char *key, char *value);
-t_rec			*get_cmd(t_cmap *map, char *key);
-void			set_cmd(t_cmap *map, char *key, t_rec *value);
 void			enter(char  *str, int *iter, t_cmap *map, t_clist **lst);
 void			get_oper(char *str, int *iter, t_clist **operator);
 t_cmap			*put_vars(char **vars);
 char			*single_double_quotes(char *str, int *iter, char c, t_cmap *map);
 char			*get_command(char *str, int *iter, t_cmap *map);
 t_rec       	*handle_command(char *str, t_cmap *map, int *iter, int is_found);
-void			add_command(char *cmd, t_cmap *mp, t_cmap *global_vars, t_clist **lst);
-t_cmap			*get_command_line(char *cmd, t_cmap *global_vars, t_clist **lst);
-t_ccommand		*get_command_key_val(char *cmd, t_cmap *envs);
+void			add_command(char *cmd, t_clist **lst, t_cmap *global_vars);
+t_clist			*get_command_line(char *cmd, t_cmap *global_vars);
 t_clist			*all_commands(char *s, char **envs);
 int				variables(char *dest, char *str, int *iter, t_cmap *map);
 char			*single_quotes(char *str, int *iter);
-void			free_keys_rec(void *k_v);
 void			free_ccommand(void *cmd);
 void			free_all_commands(t_clist **lst);
 void			free_vars(void *vars);

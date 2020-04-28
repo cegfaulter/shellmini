@@ -12,14 +12,13 @@
 
 #include "recognizer.h"
 
-t_ccommand  *get_command_key_val(char *cmd, t_cmap *envs)
+t_clist  *get_commands(char *cmd, t_cmap *envs)
 {
-    t_ccommand  *key_val;
+    t_clist  *cmds;
 
-    key_val = malloc(sizeof(t_ccommand));
-    key_val->keys = NULL;
-    key_val->full_command = get_command_line(cmd, envs, &key_val->keys);
-    return (key_val);
+    cmds = NULL;
+    append(&cmds, get_command_line(cmd, envs));
+    return (cmds);
 }
 
 t_clist     *all_commands(char *s, char **envs)
@@ -28,14 +27,14 @@ t_clist     *all_commands(char *s, char **envs)
     t_cmap      *global_env;
     char        **cmds;
     int         iter;
-
+    
     global_env = put_vars(envs);
     all = NULL;
     cmds = csplit(s, ';');
     iter = 0;
     while (cmds[iter])
     {
-        append(&all, get_command_key_val(cmds[iter], global_env));
+        append(&all, get_command_line(cmds[iter], global_env));
         iter++;
     }
     free_split(&cmds);
