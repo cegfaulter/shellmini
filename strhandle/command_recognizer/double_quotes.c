@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 03:48:49 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/03/11 08:31:48 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/04/29 05:49:45 by elomary00        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int        double_quotes_back(char *s, t_cmap *map)
 
     len = 0;
     iter = -1;
+    lock = 1;
     while (s[++iter] != 0)
     {
         if (s[iter] == '"' && lock)

@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 19:05:47 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/03/11 10:06:56 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/04/29 05:48:56 by elomary00        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void		free_rec(t_rec **rec)
 		clear_list(&(*rec)->files, free);
 		clear_list(&(*rec)->oper, free);
 		clear_list(&(*rec)->text, free);
+		free(*rec);
 	}
 }
 
