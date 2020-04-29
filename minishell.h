@@ -105,5 +105,6 @@ char			*ft_join_char_str(char *str, char ch);
 void			update_print_env(int c);
 void			ft_pwd(int c);
 char	        *ft_getabsolute_path(char *command, int *builtins);
+int             ft_strcmp(char *s1, char *s2);
 
 #endif

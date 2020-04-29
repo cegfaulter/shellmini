@@ -96,19 +96,19 @@ void	ft_checkbuiltins(char *command, int *builtins)
 {
 	if (command == NULL)
 		return ;
-	if (ft_strncmp("echo", command, 4) == 0)
+	if (ft_strcmp("echo", command) == 0)
 		*builtins = 1;
-	else if (ft_strncmp("pwd", command, 3) == 0)
+	else if (ft_strcmp("pwd", command) == 0)
 		*builtins = 2;
-	else if (ft_strncmp("cd", command, 2) == 0)
+	else if (ft_strcmp("cd", command) == 0)
 		*builtins = 3;
-	else if (ft_strncmp("export", command, 6) == 0)
+	else if (ft_strcmp("export", command) == 0)
 		*builtins = 4;
-	else if (ft_strncmp("unset", command, 5) == 0)
+	else if (ft_strcmp("unset", command) == 0)
 		*builtins = 5;
-	else if (ft_strncmp("env", command, 3) == 0)
+	else if (ft_strcmp("env", command) == 0)
 		*builtins = 6;
-	else if (ft_strncmp("exit", command, 4) == 0)
+	else if (ft_strcmp("exit", command) == 0)
 		*builtins = 7;
 	else
 		*builtins = -1;
@@ -131,8 +131,7 @@ char	*ft_getabsolute_path(char *command, int *builtins)
 		{
 			while ((pdirent = readdir(pdir)) != NULL)
 			{
-				if (ft_strncmp(pdirent->d_name, command,
-					ft_strlen(pdirent->d_name)) == 0)
+				if (ft_strcmp(pdirent->d_name, command) == 0)
 				{
 					*builtins = 0;
 					return (ft_strjoin(ft_join_char_str(
