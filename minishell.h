@@ -24,6 +24,8 @@
 # include "GNL/get_next_line.h"
 # include "LIBFT/libft.h"
 # include "strhandle/command_recognizer/recognizer.h"
+# include <errno.h>
+# include <string.h>
 
 typedef struct	s_minishell
 {

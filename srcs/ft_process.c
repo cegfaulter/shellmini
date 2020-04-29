@@ -57,7 +57,7 @@ char    *ft_read_current_fd(int fd)
     return (data);
 }
 
-void        ft_read_from_input(t_list *list)
+void        ft_read_or_save(t_list *list)
 {
     t_list  *tmp;
 
@@ -94,7 +94,7 @@ void		ft_print_multipiperesult(void)
             dup2(fd, 0);
             if (tmp_args->next != NULL)
                 dup2(pipefd[1], 1);
-            ft_read_from_input(((t_command*)tmp_args->content)->files);
+            ft_read_or_save(((t_command*)tmp_args->content)->files);
             if (((t_command*)tmp_args->content)->builtins >= 1)
             {   
                 //ft_runrightcmd(((t_command*)tmp_args->content), 1);
@@ -102,8 +102,14 @@ void		ft_print_multipiperesult(void)
             }
             else
             {
-                execve(((t_command*)tmp_args->content)->command[0],
-				((t_command*)tmp_args->content)->command, g_data.envp);
+                if (execve(((t_command*)tmp_args->content)->command[0],
+				((t_command*)tmp_args->content)->command, g_data.envp) == -1)
+                {
+                    ft_putstr_fd("Minishell: ", 2);
+                    ft_putstr_fd(((t_command*)tmp_args->content)->command[0], 2);
+                    ft_putstr_fd(": command not found\n", 2);
+                }
+
             }
             close(fd);
             close(pipefd[1]);
