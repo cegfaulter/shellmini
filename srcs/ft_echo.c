@@ -18,13 +18,10 @@ void	ft_echo_builtins(t_command *item, int c)
 	int		i;
 	int		newline;
 
-	if (c == 0)
-	{
 		i = 1;
 		newline = 1;
 		command_line = item->command;
-		while (ft_strncmp("-n", command_line[i],
-			ft_strlen(command_line[i])) == 0)
+		while (ft_strcmp("-n", command_line[i]) == 0)
 		{
 			newline = 0;
 			i++;
@@ -37,8 +34,8 @@ void	ft_echo_builtins(t_command *item, int c)
 			i++;
 		}
 		if (newline)
-			ft_putchar_fd(' ', 1);
-	}
+			ft_putchar_fd('\n', 1);
+
 }
 
 /*

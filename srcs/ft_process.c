@@ -83,7 +83,6 @@ void		ft_print_multipiperesult(void)
     int     fd;
 
 	tmp_args = g_data.list_args;
-    data = NULL;
     fd = 0;
 	while (tmp_args)
 	{
@@ -96,10 +95,7 @@ void		ft_print_multipiperesult(void)
                 dup2(pipefd[1], 1);
             ft_read_or_save(((t_command*)tmp_args->content)->files);
             if (((t_command*)tmp_args->content)->builtins >= 1)
-            {   
-                //ft_runrightcmd(((t_command*)tmp_args->content), 1);
-                printf("builtin\n");
-            }
+                ft_runrightcmd(((t_command*)tmp_args->content), 1);
             else
             {
                 if (execve(((t_command*)tmp_args->content)->command[0],
@@ -116,6 +112,8 @@ void		ft_print_multipiperesult(void)
             close(pipefd[0]);
 			exit(0);
 		}
+        if (((t_command*)tmp_args->content)->builtins == 3)
+            ft_runrightcmd(((t_command*)tmp_args->content), 0);
 		wait(NULL);
 		close(pipefd[1]);
         fd = dup(pipefd[0]);

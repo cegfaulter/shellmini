@@ -35,15 +35,15 @@ void		ft_changedirectory(t_command *item, int c)
 	DIR		*pdir;
 	char	*to_directory;
 
-	to_directory = item->command[1];
+	to_directory = item->command[1] == 0 ? "" : item->command[1];
 	ft_set_env_oldpwd();
 	pdir = opendir(to_directory);
 	if (pdir != NULL)
 		chdir(to_directory);
 	else
 	{
-		if (c == 0)
-			perror(item->command[0]);
+        if (c != 0)
+            printf("Minishell: %s\n", strerror(errno));
 	}
 }
 
