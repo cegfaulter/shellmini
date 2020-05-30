@@ -81,6 +81,7 @@ typedef struct	s_dirent {
 t_minishell		g_data;
 t_command_attr	g_args;
 char			**g_v_args;
+t_cmap          *g_map_env;
 
 void			ft_commands_line(void);
 void			ft_free_split(char ***data);

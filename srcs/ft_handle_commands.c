@@ -134,7 +134,7 @@ void		ft_handlecommands(char *cmd)
     t_rec       *cmd_param;
     int         bultin;
 
-	all = all_commands(cmd, g_v_args);
+	all = all_commands(cmd, g_map_env);
     bultin = 0;
 	while (all)
 	{

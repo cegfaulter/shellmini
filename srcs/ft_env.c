@@ -140,13 +140,10 @@ void		update_env_global_variable(void)
 void		update_print_env(int c)
 {
 	int		i;
+    char    **env_2d;
 
 	i = 0;
-	if (c == 0)
-	{
-		update_env_global_variable();
-		while (g_data.updated_env[i])
-			printf("%s\n", g_data.updated_env[i++]);
-	}
-	
+	env_2d = from_map_to_arr(g_map_env);
+	while (env_2d[i])
+        printf("%s\n", env_2d[i++]);
 }

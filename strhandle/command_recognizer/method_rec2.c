@@ -12,7 +12,7 @@
 
 #include "recognizer.h"
 #include <stdio.h>
-
+/*
 int         main(int argc, char **argv, char **var_env)
 {
     char        **arr2d;
@@ -42,4 +42,4 @@ int         main(int argc, char **argv, char **var_env)
     clear_map(&global_env, free_vars);
     free_table2d(&arr2d);
     return (0);
-}
+}*/

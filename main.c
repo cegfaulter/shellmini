@@ -45,6 +45,7 @@ int			main(int argc, char **argv, char **envp)
 	ft_init_data(argc, argv, envp);
 	ft_set_envp();
 	ft_set_env_path();
+    g_map_env = put_vars(envp);
 	while (1)
 	{
 		print_shell_line();
