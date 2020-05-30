@@ -55,6 +55,7 @@ void			free_rec(t_rec **rec);
 int      		var_len(char *str, int *iter, t_cmap *map);
 char			*get(t_cmap *map, const char *key);
 void			setv(t_cmap *map, const char *key, char *value);
+void        	popv(t_cmap *map, const char *key);
 void			enter(char  *str, int *iter, t_cmap *map, t_clist **lst);
 void			get_oper(char *str, int *iter, t_clist **operator);
 t_cmap			*put_vars(char **vars);

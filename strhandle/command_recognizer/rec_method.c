@@ -12,7 +12,6 @@
 
 #include "recognizer.h"
 
-
 char        *get(t_cmap *map, const char *key)
 {
     return ((char *)get_value(map, key, ft_cstrlen(key)));
@@ -28,14 +27,13 @@ void        setv(t_cmap *map, const char *key, char *value)
     set_value(map, key, value, ft_cstrlen(key));
 }
 
-t_rec       *get_cmd(t_cmap *map, char *key)
+void        popv(t_cmap *map, const char *key)
 {
-    return (get_value(map, key, ft_cstrlen(key)));
-}
+    char  *value;
 
-void        set_cmd(t_cmap *map, char *key, t_rec *value)
-{
-    set_value(map, key, value, ft_cstrlen(key));
+    value = pop_value(map, key, ft_cstrlen(key));
+    if (value)
+        free(value);
 }
 
 int			in_set(char c, char *set)

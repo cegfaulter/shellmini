@@ -28,6 +28,7 @@ typedef struct	s_hash_map
 	t_clist		*lst[SIZE];
 }				t_cmap;
 
+int				get_hash_code(const void *key, size_t key_size);
 void			*copy_key(const unsigned char *key, size_t key_size);
 t_cmap			*init_map(void);
 int				compare(const void *val1, const void *val2, size_t key_size);
@@ -38,4 +39,5 @@ void			set_value(t_cmap *map, const void *key,
 void			*get_value(t_cmap *map, const void *key, size_t key_size);
 t_clist			*get_keys(const t_cmap *map);
 void			clear_map(t_cmap **map, void free_data(void *k_v));
+void			*pop_value(t_cmap *map, const unsigned char *key, size_t key_size);
 #endif

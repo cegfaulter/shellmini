@@ -12,34 +12,18 @@
 
 #include "recognizer.h"
 #include <stdio.h>
-/*
+
 int         main(int argc, char **argv, char **var_env)
 {
-    char        **arr2d;
-    char        *s;
-    int         iter;
-    t_cmap      *global_env;
-    t_ccommand  *hi;
 
-    iter = 0;
-    global_env = put_vars(var_env);
+    t_cmap *map = init_map();
 
-    //add value
-    setv(global_env, "hello", ft_cstrdup("elomary"));
-    //get value
-    printf("%s\n------------\n", get(global_env, "hello"));
-    // update value
-    setv(global_env, "hello", ft_cstrdup("mohamed elomary"));
-    // convert map to sorted arr 2d
-    arr2d = from_map_to_arr(global_env);
-    // print arr2d
-    while (arr2d[iter])
-    {
-        printf("%s\n", arr2d[iter]);
-        iter++;
-    }
-    // free map and arr2d at end
-    clear_map(&global_env, free_vars);
-    free_table2d(&arr2d);
+    setv(map, "hello", ft_cstrdup("world"));
+    setv(map, "makaine maidare", ft_cstrdup("again"));
+    //to remove variables popv
+    popv(map, "makaine maidare");
+    char *value = get(map, "makaine maidare");
+    if (value)
+        printf("%s\n", value);
     return (0);
-}*/
+}
