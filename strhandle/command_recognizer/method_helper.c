@@ -77,12 +77,14 @@ char		*ft_cstrdup(char *str)
 {
 	char		*s;
 	int			iter;
+	int			len;
 
-	if (!str)
+	len = ft_cstrlen(str);
+	s = malloc(sizeof(char) * (len + 1));
+	if (!s)
 		return (NULL);
-	s = malloc(sizeof(char) * (ft_cstrlen(str) + 1));
 	iter = 0;
-	while (str[iter] != '\0')
+	while (iter < len)
 	{
 		s[iter] = str[iter];
 		iter++;

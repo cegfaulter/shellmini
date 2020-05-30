@@ -75,7 +75,8 @@ void	clear_list(t_clist **list, void free_data(void *data))
 		return ;
 	if ((*list)->next)
 		clear_list(&((*list)->next), free_data);
-	free_data((*list)->data);
+	if (free_data)
+		free_data((*list)->data);
 	free(*list);
 	*list = NULL;
 }

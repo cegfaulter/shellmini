@@ -63,10 +63,12 @@ char			*get_command(char *str, int *iter, t_cmap *map);
 t_rec       	*handle_command(char *str, t_cmap *map, int *iter, int is_found);
 void			add_command(char *cmd, t_clist **lst, t_cmap *global_vars);
 t_clist			*get_command_line(char *cmd, t_cmap *global_vars);
-t_clist			*all_commands(char *s, char **envs);
+t_clist			*all_commands(char *s, t_cmap *vars);
 int				variables(char *dest, char *str, int *iter, t_cmap *map);
 char			*single_quotes(char *str, int *iter);
 void			free_ccommand(void *cmd);
 void			free_all_commands(t_clist **lst);
 void			free_vars(void *vars);
+void			free_table2d(char ***table);
+char			**from_map_to_arr(t_cmap *map);
 #endif

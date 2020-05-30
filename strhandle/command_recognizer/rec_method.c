@@ -15,7 +15,7 @@
 
 char        *get(t_cmap *map, const char *key)
 {
-    return (get_value(map, key, ft_cstrlen(key)));
+    return ((char *)get_value(map, key, ft_cstrlen(key)));
 }
 
 void        setv(t_cmap *map, const char *key, char *value)

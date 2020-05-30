@@ -21,14 +21,12 @@ t_clist  *get_commands(char *cmd, t_cmap *envs)
     return (cmds);
 }
 
-t_clist     *all_commands(char *s, char **envs)
+t_clist     *all_commands(char *s, t_cmap *global_env)
 {
     t_clist     *all;
-    t_cmap      *global_env;
     char        **cmds;
     int         iter;
-    
-    global_env = put_vars(envs);
+
     all = NULL;
     cmds = csplit(s, ';');
     iter = 0;
@@ -38,6 +36,5 @@ t_clist     *all_commands(char *s, char **envs)
         iter++;
     }
     free_split(&cmds);
-    clear_map(&global_env, free_vars);
     return (all);
 }

@@ -11,36 +11,35 @@
 /* ************************************************************************** */
 
 #include "recognizer.h"
-/*
+#include <stdio.h>
+
 int         main(int argc, char **argv, char **var_env)
 {
-    char        **sp;
+    char        **arr2d;
     char        *s;
     int         iter;
-    t_clist     *lst = NULL;
-    t_clist     *all = NULL;
+    t_cmap      *global_env;
     t_ccommand  *hi;
 
     iter = 0;
-    print("---method_rec2.c---\n");
-    while (1)
+    global_env = put_vars(var_env);
+
+    //add value
+    setv(global_env, "hello", ft_cstrdup("elomary"));
+    //get value
+    printf("%s\n------------\n", get(global_env, "hello"));
+    // update value
+    setv(global_env, "hello", ft_cstrdup("mohamed elomary"));
+    // convert map to sorted arr 2d
+    arr2d = from_map_to_arr(global_env);
+    // print arr2d
+    while (arr2d[iter])
     {
-        print(">>> ");
-        get_next_line(1, &s);
-        //s = "< file echo";
-        all = all_commands(s, var_env);
-        for (t_clist *i = all; i != NULL; i = i->next)
-        {
-            for (t_clist *j = (t_clist *)all->data; j != NULL; j = j->next)
-            {
-                hi = (t_ccommand *)j->data;
-                print("%s\n", (char *)hi->cmd);
-                print_rec((t_rec *)hi->data);
-            }
-        }
-        free_all_commands(&all);
-        free(s);
+        printf("%s\n", arr2d[iter]);
+        iter++;
     }
+    // free map and arr2d at end
+    clear_map(&global_env, free_vars);
+    free_table2d(&arr2d);
     return (0);
 }
-*/

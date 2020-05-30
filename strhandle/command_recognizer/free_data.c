@@ -57,3 +57,17 @@ void	free_all_commands(t_clist **lst)
 		*lst = NULL;
 	}
 }
+
+void 	free_table2d(char ***table)
+{
+	int		iter;
+
+	iter = 0;
+	while ((*table)[iter])
+	{
+		free((*table)[iter]);
+		iter++;
+	}
+	free(*table);
+	*table = NULL;
+}

@@ -103,6 +103,8 @@ char           **csplit(const char *s, char c)
     {
         while (s[iter] == c)
             iter++;
+        if (!s[iter])
+            break;
         sub_strs[iter_sub] = get_word(s, iter, arr[iter_sub]);
         iter += arr[iter_sub];
         iter_sub++;
