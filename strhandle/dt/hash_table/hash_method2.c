@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "hash_map.h"
-#include <stdio.h>
 
 t_clist		*get_keys(const t_cmap *map)
 {
