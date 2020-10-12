@@ -31,7 +31,7 @@ void        popv(t_cmap *map, const char *key)
 {
     char  *value;
 
-    value = pop_value(map, key, ft_cstrlen(key));
+    value = pop_value(map, (const unsigned char *)key, ft_cstrlen(key));
     if (value)
         free(value);
 }

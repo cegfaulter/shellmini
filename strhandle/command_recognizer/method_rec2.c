@@ -12,7 +12,7 @@
 
 #include "recognizer.h"
 #include <stdio.h>
-
+/*
 int         main(int argc, char **argv, char **var_env)
 {
 
@@ -26,4 +26,4 @@ int         main(int argc, char **argv, char **var_env)
     if (value)
         printf("%s\n", value);
     return (0);
-}
+}*/

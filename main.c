@@ -42,6 +42,7 @@ int			main(int argc, char **argv, char **envp)
 	char	*line;
 
 	g_v_args = envp;
+	g_data.envp = envp;
 	ft_init_data(argc, argv, envp);
 	ft_set_envp();
 	ft_set_env_path();

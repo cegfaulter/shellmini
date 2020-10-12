@@ -19,7 +19,7 @@ void	ft_runrightcmd(t_command *item, int c)
 	if (item->builtins == 1)
 		ft_echo_builtins(item, c);
 	else if (item->builtins == 2)
-		ft_pwd(c);
+		ft_pwd(0);
 	else if (item->builtins == 3)
 		ft_changedirectory(item, c);
 	else if (item->builtins == 4)
