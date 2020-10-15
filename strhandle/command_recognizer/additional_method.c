@@ -3,35 +3,35 @@
 #include "recognizer.h"
 #include <string.h>
 
-void        remove_value(t_clist **lst, char *key)
+void	remove_value(t_clist **lst, char *key)
 {
-    t_clist     *temp;
-    t_clist     *before;
+	t_clist		*temp;
+	t_clist		*before;
 
-    if (!*lst)
-        return ;
-    if (!strcmp((*lst)->data, key))
-    {
-        before = *lst;
-        *lst = (*lst)->next;
-        free(before);
-    }
-    else
-    {
-        before = *lst;
-        temp = (*lst)->next;
-        while (temp)
-        {
-            if (!strcmp(temp->data, key))
-            {
-                before->next = temp->next;
-                free(temp);
-                break ;
-            }
-            before = temp;
-            temp = temp->next;
-        }
-    }
+	if (!*lst)
+		return ;
+	if (!strcmp((*lst)->data, key))
+	{
+		before = *lst;
+		*lst = (*lst)->next;
+		free(before);
+	}
+	else
+	{
+		before = *lst;
+		temp = (*lst)->next;
+		while (temp)
+		{
+			if (!strcmp(temp->data, key))
+			{
+				before->next = temp->next;
+				free(temp);
+				break ;
+			}
+			before = temp;
+			temp = temp->next;
+		}
+	}
 }
 
 char        *get_lowest(t_clist *lst)

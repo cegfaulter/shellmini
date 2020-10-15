@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 11:12:57 by settaqi           #+#    #+#             */
-/*   Updated: 2020/02/03 17:02:48 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/14 11:39:54 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_runrightcmd(t_command *item, int c)
 	else if (item->builtins == 4)
 		printf("hello from export\n");
 	else if (item->builtins == 5)
-		printf("hello from unset\n");
+		ft_unset(item);
 	else if (item->builtins == 6)
 		update_print_env(c);
 	else if (item->builtins == 7)

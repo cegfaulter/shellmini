@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:00:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/02/12 18:10:20 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/14 11:39:33 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct	s_minishell
 	t_list		*list_args;
 	char		**path_env;
 	char		**updated_env;
-    short int   error_detected;
+	short int	error_detected;
 }				t_minishell;
 
 typedef struct	s_keyval
@@ -59,15 +59,15 @@ typedef struct	s_command
 {
 	char		**command;
 	int			save;
-	t_list      *files;
+	t_list		*files;
 	int			builtins;
 }				t_command;
 
 typedef struct	s_files
 {
-	char        *filename;
-    short int   mode; // 0 input - 1 write override - 2 write append
-    int         fd;
+	char		*filename;
+	short int	mode; // 0 input - 1 write override - 2 write append
+	int			fd;
 }				t_files;
 
 typedef struct	s_dirent {
@@ -81,7 +81,7 @@ typedef struct	s_dirent {
 t_minishell		g_data;
 t_command_attr	g_args;
 char			**g_v_args;
-t_cmap          *g_map_env;
+t_cmap			*g_map_env;
 
 void			ft_commands_line(void);
 void			ft_free_split(char ***data);
@@ -105,7 +105,8 @@ void			update_env_global_variable(void);
 char			*ft_join_char_str(char *str, char ch);
 void			update_print_env(int c);
 void			ft_pwd(int c);
-char	        *ft_getabsolute_path(char *command, int *builtins);
-int             ft_strcmp(char *s1, char *s2);
+char			*ft_getabsolute_path(char *command, int *builtins);
+int				ft_strcmp(char *s1, char *s2);
+void			ft_unset(t_command *item);
 
 #endif

@@ -6,19 +6,20 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:10:49 by settaqi           #+#    #+#             */
-/*   Updated: 2020/02/03 17:03:17 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/14 10:56:09 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int			ft_arr_length(char **data) {
+int			ft_arr_length(char **data)
+{
 	int		i;
 
 	i = 0;
 	while (data[i])
 		i++;
-	return i;
+	return (i);
 }
 
 void		ft_set_envp(void)
@@ -33,7 +34,8 @@ void		ft_set_envp(void)
 		data_splitted = ft_split(g_data.envp[i], '=');
 		newvar = (t_keyval*)(malloc(sizeof(t_keyval) * 1));
 		newvar->key = ft_strdup(data_splitted[0]);
-		newvar->value = ft_strdup(ft_arr_length(data_splitted) > 1 ? data_splitted[1] : "");
+		newvar->value = ft_strdup(ft_arr_length(data_splitted)
+						> 1 ? data_splitted[1] : "");
 		ft_lstadd_back(&(g_data.list_envp), ft_lstnew(newvar));
 		i++;
 	}
@@ -149,10 +151,10 @@ void		update_env_global_variable(void)
 void		update_print_env(int c)
 {
 	int		i;
-    char    **env_2d;
+	char	**env_2d;
 
 	i = 0;
 	env_2d = from_map_to_arr(g_map_env);
-	// while (env_2d[i])
-    //     printf("%s\n", env_2d[i++]);
+	while (env_2d[i])
+		printf("%s\n", env_2d[i++]);
 }

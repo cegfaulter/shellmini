@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   rec_method.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 16:02:30 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/03/11 07:07:22 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/10/14 09:25:38 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "recognizer.h"
+#include <stdio.h>
 
-char        *get(t_cmap *map, const char *key)
+char   	*get(t_cmap *map, const char *key)
 {
     return ((char *)get_value(map, key, ft_cstrlen(key)));
 }
@@ -32,6 +33,7 @@ void        popv(t_cmap *map, const char *key)
     char  *value;
 
     value = pop_value(map, (const unsigned char *)key, ft_cstrlen(key));
+    printf("%s\n", value);
     if (value)
         free(value);
 }
