@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_initdata.c                                      :+:      :+:    :+:   */
+/*   ft_free_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 17:25:05 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/15 11:30:38 by settaqi          ###   ########.fr       */
+/*   Created: 2020/10/20 12:03:37 by settaqi           #+#    #+#             */
+/*   Updated: 2020/10/20 12:05:02 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		ft_set_homedirectory(void)
+void	free_globals(void)
 {
-	int		i;
-	char	*home_directory;
-	char	**splitted_data;
-
-	home_directory = NULL;
-	g_data.home_directory = get(g_map_env, "HOME");
-}
-
-void		ft_init_data(int argc, char **argv, char **envp)
-{
-	ft_set_homedirectory();
+	free(g_data.currentdirectory);
 }

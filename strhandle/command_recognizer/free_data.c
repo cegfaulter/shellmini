@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 19:05:47 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/04/29 05:48:56 by elomary00        ###   ########.fr       */
+/*   Updated: 2020/10/20 12:16:15 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "recognizer.h"
 
-void		free_rec(t_rec **rec)
+void			free_rec(t_rec **rec)
 {
 	if (*rec)
 	{
@@ -20,32 +20,38 @@ void		free_rec(t_rec **rec)
 		clear_list(&(*rec)->oper, free);
 		clear_list(&(*rec)->text, free);
 		free(*rec);
+		*rec = NULL;
 	}
 }
 
-void	 free_ccommand(void *cmd)
+void			free_ccommand(void *cmd)
 {
-	t_ccommand *command;
+	t_ccommand	*command;
 
 	command = (t_ccommand *)cmd;
 	free(command->cmd);
+	command->cmd = NULL;
 	free_rec(&command->data);
 	free(command);
+	command = NULL;
 }
 
-void	free_vars(void *vars)
+void			free_vars(void *vars)
 {
 	t_key_value	*k_v;
 
-     k_v = (t_key_value *)vars;
-	 free(k_v->key);
-	 free(k_v->value);
-	 free(k_v);
+	k_v = (t_key_value *)vars;
+	free(k_v->key);
+	free(k_v->value);
+	free(k_v);
+	k_v->key = NULL;
+	k_v->value = NULL;
+	k_v = NULL;
 }
 
-void	free_all_commands(t_clist **lst)
+void			free_all_commands(t_clist **lst)
 {
-	t_clist 	*list;
+	t_clist		*list;
 
 	if (*lst)
 	{
@@ -58,14 +64,15 @@ void	free_all_commands(t_clist **lst)
 	}
 }
 
-void 	free_table2d(char ***table)
+void			free_table2d(char ***table)
 {
-	int		iter;
+	int			iter;
 
 	iter = 0;
 	while ((*table)[iter])
 	{
 		free((*table)[iter]);
+		(*table)[iter] = NULL;
 		iter++;
 	}
 	free(*table);

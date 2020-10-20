@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:00:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/14 11:39:33 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/20 13:48:52 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,86 +27,85 @@
 # include <errno.h>
 # include <string.h>
 
-typedef struct	s_minishell
+typedef struct			s_minishell
 {
-	char		*line;
-	int			gnl_return;
-	char		*currentdirectory;
-	char		**envp;
-	int			argc;
-	char		**argv;
-	t_list		*list_envp;
-	char		*home_directory;
-	t_list		*list_args;
-	char		**path_env;
-	char		**updated_env;
-	short int	error_detected;
-}				t_minishell;
+	char				*line;
+	int					gnl_return;
+	char				*currentdirectory;
+	char				*home_directory;
+	t_list				*list_args;
+	char				**path_env;
+	short int			error_detected;
+}						t_minishell;
 
-typedef struct	s_keyval
+typedef struct			s_keyval
 {
-	char		*key;
-	char		*value;
-}				t_keyval;
+	char				*key;
+	char				*value;
+}						t_keyval;
 
-typedef struct	s_command_attr
+typedef struct			s_command_attr
 {
-	char		*prog_name;
-	t_list		*list_args;
-}				t_command_attr;
+	char				*prog_name;
+	t_list				*list_args;
+}						t_command_attr;
 
-typedef struct	s_command
+typedef struct			s_command
 {
-	char		**command;
-	int			save;
-	t_list		*files;
-	int			builtins;
-}				t_command;
+	char				**command;
+	int					save;
+	t_list				*files;
+	int					builtins;
+}						t_command;
 
-typedef struct	s_files
+typedef struct			s_files
 {
-	char		*filename;
-	short int	mode; // 0 input - 1 write override - 2 write append
-	int			fd;
-}				t_files;
+	char				*filename;
+	short int			mode; // 0 input - 1 write override - 2 write append
+	int					fd;
+}						t_files;
 
-typedef struct	s_dirent {
-	ino_t			d_ino;
-	off_t			d_off;
-	unsigned short	d_reclen;
-	unsigned char	d_type;
-	char			d_name[256];
-}				t_dirent;
+typedef struct			s_dirent {
+	unsigned long long	d_ino;
+	long long			d_off;
+	unsigned short		d_reclen;
+	unsigned char		d_type;
+	char				d_name[256];
+}						t_dirent;
 
-t_minishell		g_data;
-t_command_attr	g_args;
-char			**g_v_args;
-t_cmap			*g_map_env;
+t_minishell				g_data;
+t_command_attr			g_args;
+char					**g_v_args;
+t_cmap					*g_map_env;
 
-void			ft_commands_line(void);
-void			ft_free_split(char ***data);
-void			ft_set_envp(void);
-void			ft_add_envp(char *key, char *value);
-void			ft_delete_envp(char *key);
-int				ft_update_envp(char *key, char *value);
-void			ft_set_env_oldpwd(void);
-void			ft_update_env_pwd(void);
-void			ft_init_data(int argc, char **argv, char **envp);
-void			ft_oldargsvalues(void);
-void			ft_echo(char *str, int i, int argc);
-void			ft_checkpipeandredirect(void);
-void			ft_print_multipiperesult(void);
-void			ft_handle_command_args(char **command, int *builtins);
-char			*ft_get_env(char *key);
-void			ft_echo_builtins(t_command *item, int c);
-void			ft_runrightcmd(t_command *item, int c);
-void			ft_changedirectory(t_command *item, int c);
-void			update_env_global_variable(void);
-char			*ft_join_char_str(char *str, char ch);
-void			update_print_env(int c);
-void			ft_pwd(int c);
-char			*ft_getabsolute_path(char *command, int *builtins);
-int				ft_strcmp(char *s1, char *s2);
-void			ft_unset(t_command *item);
+void					ft_commands_line(void);
+void					ft_free_split(char **data);
+void					ft_set_envp(void);
+void					ft_add_envp(char *key, char *value);
+void					ft_delete_envp(char *key);
+int						ft_update_envp(char *key, char *value);
+void					ft_set_env_oldpwd(void);
+void					ft_update_env_pwd(void);
+void					ft_init_data(int argc, char **argv, char **envp);
+void					ft_oldargsvalues(void);
+void					ft_echo(char *str, int i, int argc);
+void					ft_checkpipeandredirect(void);
+void					ft_print_multipiperesult(void);
+void					ft_handle_command_args(char **command, int *builtins);
+char					*ft_get_env(char *key);
+void					ft_echo_builtins(t_command *item, int c);
+void					ft_runrightcmd(t_command *item, int c);
+void					ft_changedirectory(t_command *item, int c);
+void					update_env_global_variable(void);
+char					*ft_join_char_str(char *str, char ch);
+char					**update_print_env(int c);
+void					ft_pwd(int c);
+char					*ft_getabsolute_path(char *command, int *builtins);
+int						ft_strcmp(char *s1, char *s2);
+void					ft_unset(t_command *item, int c);
+void					ft_export(int c);
+void					ft_exit(int c);
+char					*ft_getcurrentdirectory(void);
+void					free_globals(void);
 
 #endif

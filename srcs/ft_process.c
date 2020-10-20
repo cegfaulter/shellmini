@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 03:19:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/14 10:53:27 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/20 14:36:38 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ void		ft_read_or_save(t_list *list)
 
 void		execute_cmd(t_command *cmd)
 {
-	if (cmd->builtins >= 1)
+	int		status;
+
+	if (cmd->builtins >= 1 && cmd->builtins != 5 && cmd->builtins != 4 && cmd->builtins != 3)
 		ft_runrightcmd(cmd, 1);
-	else
+	else if (cmd->builtins != 5 && cmd->builtins != 4 && cmd->builtins != 3)
 	{
-		if (execve(cmd->command[0],
-		cmd->command, g_data.envp) == -1)
+		status = execve(cmd->command[0], cmd->command, update_print_env(0));
+		if (status == -1)
 		{
 			ft_putstr_fd("Minishell: ", 2);
 			ft_putstr_fd(cmd->command[0]
@@ -48,7 +50,7 @@ void		execute_cmd(t_command *cmd)
 	}
 }
 
-void		close_fd(fd, pipe_fd_1, pipe_fd_2)
+void		close_fd(fd, pipe_fd_1, pipe_fd_2)	
 {
 	close(fd);
 	close(pipe_fd_1);
@@ -64,6 +66,23 @@ void		new_proccess(t_list *tmp_args, int pipefd[], int fd)
 	execute_cmd(((t_command*)tmp_args->content));
 	close_fd(fd, pipefd[0], pipefd[1]);
 	exit(0);
+}
+
+void		free_tcmd(void)
+{
+	t_command	*data;
+	int			i;
+	t_list		*tmp;
+
+	i = 0;
+	tmp = g_data.list_args;
+	while (tmp)
+	{
+		data = (t_command*)tmp->content;
+		free_split(&(data->command));
+		tmp = tmp->next;
+	}
+	ft_lstclear(&(g_data.list_args), free);
 }
 
 void		ft_print_multipiperesult(void)
@@ -82,9 +101,9 @@ void		ft_print_multipiperesult(void)
 		pid = fork();
 		if (pid == 0)
 			new_proccess(tmp_args, pipefd, fd);
-		else if (pid < -1)
+		else if (pid <= -1)
 			ft_putstr_fd("Minishell: can't create a new process\n", 2);
-		if (((t_command*)tmp_args->content)->builtins == 3)
+		if (((t_command*)tmp_args->content)->builtins == 3 || ((t_command*)tmp_args->content)->builtins == 5 || ((t_command*)tmp_args->content)->builtins == 4)
 			ft_runrightcmd(((t_command*)tmp_args->content), 0);
 		wait(NULL);
 		close(pipefd[1]);
@@ -92,4 +111,5 @@ void		ft_print_multipiperesult(void)
 		close(pipefd[0]);
 		tmp_args = tmp_args->next;
 	}
+	free_tcmd();
 }

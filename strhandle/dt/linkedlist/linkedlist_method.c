@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linkedlist_method.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:37:32 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/02/12 16:07:15 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/10/20 12:15:18 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ void	clear_list(t_clist **list, void free_data(void *data))
 	if ((*list)->next)
 		clear_list(&((*list)->next), free_data);
 	if (free_data)
+	{
 		free_data((*list)->data);
+		(*list)->data = NULL;
+	}
 	free(*list);
 	*list = NULL;
 }

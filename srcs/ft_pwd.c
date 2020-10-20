@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 03:20:49 by settaqi           #+#    #+#             */
-/*   Updated: 2020/02/03 16:59:35 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/20 10:48:40 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	ft_pwd(int c)
 {
-	if (c == 0)
-		printf("%s\n", g_data.currentdirectory);
+	if (c == 1)
+	{
+		ft_putstr_fd(g_data.currentdirectory, 1);
+		ft_putstr_fd("\n", 1);
+	}
 }

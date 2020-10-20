@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_initdata.c                                      :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 17:25:05 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/15 11:30:38 by settaqi          ###   ########.fr       */
+/*   Created: 2020/10/20 10:42:15 by settaqi           #+#    #+#             */
+/*   Updated: 2020/10/20 10:44:52 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		ft_set_homedirectory(void)
+void	ft_exit(int c)
 {
-	int		i;
-	char	*home_directory;
-	char	**splitted_data;
-
-	home_directory = NULL;
-	g_data.home_directory = get(g_map_env, "HOME");
-}
-
-void		ft_init_data(int argc, char **argv, char **envp)
-{
-	ft_set_homedirectory();
+	if (c == 1)
+		ft_putstr_fd("exit", 2);
+	else
+		exit(0);
 }
