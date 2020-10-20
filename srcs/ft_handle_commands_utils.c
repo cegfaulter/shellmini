@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 08:34:56 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/20 12:00:46 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/20 17:01:43 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*ft_getabsolute_path(char *command, int *builtins)
 
 	i = 0;
 	ft_checkbuiltins(command, builtins);
+	printf("\n\n%s\n\n", command);
 	if (*builtins >= 1)
 		return (command);
 	while (g_data.path_env[i])
@@ -71,8 +72,8 @@ char	*ft_getabsolute_path(char *command, int *builtins)
 		{
 			while ((pdirent = readdir(pdir)) != NULL)
 				if (ft_strcmp(pdirent->d_name, command) == 0)
-					return (set_theasbolute(g_data.path_env[i]
-								, command, builtins));
+					return (set_theasbolute(g_data.path_env[i],
+							command, builtins));
 		}
 		closedir(pdir);
 		i++;

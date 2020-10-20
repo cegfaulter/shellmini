@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 03:19:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/20 14:36:38 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/20 17:02:38 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,9 @@ void		ft_print_multipiperesult(void)
 			new_proccess(tmp_args, pipefd, fd);
 		else if (pid <= -1)
 			ft_putstr_fd("Minishell: can't create a new process\n", 2);
-		if (((t_command*)tmp_args->content)->builtins == 3 || ((t_command*)tmp_args->content)->builtins == 5 || ((t_command*)tmp_args->content)->builtins == 4)
+		if (((t_command*)tmp_args->content)->builtins == 3 || 
+			((t_command*)tmp_args->content)->builtins == 5 ||
+			((t_command*)tmp_args->content)->builtins == 4)
 			ft_runrightcmd(((t_command*)tmp_args->content), 0);
 		wait(NULL);
 		close(pipefd[1]);
@@ -111,5 +113,5 @@ void		ft_print_multipiperesult(void)
 		close(pipefd[0]);
 		tmp_args = tmp_args->next;
 	}
-	free_tcmd();
+	//free_tcmd();
 }
