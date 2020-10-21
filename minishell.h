@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:00:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/20 13:48:52 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/21 14:05:05 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ typedef struct			s_keyval
 	char				*value;
 }						t_keyval;
 
-typedef struct			s_command_attr
-{
-	char				*prog_name;
-	t_list				*list_args;
-}						t_command_attr;
-
 typedef struct			s_command
 {
 	char				**command;
@@ -74,9 +68,8 @@ typedef struct			s_dirent {
 }						t_dirent;
 
 t_minishell				g_data;
-t_command_attr			g_args;
-char					**g_v_args;
 t_cmap					*g_map_env;
+//char					g_reserved_characters[28] = "&;|*?'\"‘[]()$<>{}#/!~+-/\\";
 
 void					ft_commands_line(void);
 void					ft_free_split(char **data);
@@ -103,9 +96,15 @@ void					ft_pwd(int c);
 char					*ft_getabsolute_path(char *command, int *builtins);
 int						ft_strcmp(char *s1, char *s2);
 void					ft_unset(t_command *item, int c);
-void					ft_export(int c);
+void					ft_export(t_command *item, int c);
 void					ft_exit(int c);
 char					*ft_getcurrentdirectory(void);
 void					free_globals(void);
+
+void					ft_print_error(void);
+
+void					ft_data_list(t_list *list);
+
+
 
 #endif

@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_chdir.c                                         :+:      :+:    :+:   */
+/*   ft_errors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 17:17:58 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 13:54:51 by settaqi          ###   ########.fr       */
+/*   Created: 2020/10/21 08:38:18 by settaqi           #+#    #+#             */
+/*   Updated: 2020/10/21 13:52:05 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void		ft_changedirectory(t_command *item, int c)
+void		ft_strerror(char *str)
 {
-	DIR		*pdir;
-	char	*to_directory;
+	ft_putstr_fd("Minishell: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putchar_fd('\n', 2);
+}
 
-	to_directory = item->command[1] == 0 ? "" : item->command[1];
-	pdir = opendir(to_directory);
-	if (pdir != NULL)
-	{
-		setv(g_map_env, "OLDPWD", ft_strdup(get(g_map_env, "PWD")));
-		chdir(to_directory);
-		setv(g_map_env, "PWD", ft_getcurrentdirectory());
-	}
+void		ft_print_error(void)
+{
+	if (g_data.error_detected == 2)
+		ft_strerror("no output file");
 	else
-	{
-		if (c == 0)
-			ft_print_error();
-	}
+		ft_strerror(strerror(errno));
 }

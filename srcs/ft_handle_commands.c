@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 09:16:32 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/20 16:35:00 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/21 13:49:58 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		ft_ctrl_d(void)
 {
-	ft_putstr_fd("exit\n", 1);
+	ft_putstr_fd("exit\n", 2);
 	exit(0);
 }
 
@@ -50,7 +50,7 @@ char		**ft_list_to_arr(t_clist *list, char *cmd)
 	t_clist *tmp;
 
 	i = 1;
-	commands = (char**)malloc(sizeof(char*) * (ft_lstsize((t_list*)list) + 1));
+	commands = (char**)malloc(sizeof(char*) * (ft_lstsize((t_list*)list) + 2));
 	commands[0] = cmd;
 	tmp = list;
 	while (tmp)
@@ -83,7 +83,7 @@ void			ft_putfiles(t_rec *list, t_command *cmd)
 	t_files		*file;
 
 	if (ft_lstsize((t_list*)list->files) != ft_lstsize((t_list*)list->oper))
-		g_data.error_detected = 1;
+		g_data.error_detected = 2;
 	else
 	{
 		cmd->files = NULL;
@@ -111,7 +111,7 @@ void			ft_putfiles(t_rec *list, t_command *cmd)
 				file->fd = open(file->filename, O_RDONLY);
 			}
 			if (file->fd == -1)
-				g_data.error_detected = 1;
+				g_data.error_detected = 3;
 			ft_lstadd_back(&(cmd->files), ft_lstnew(file));
 			tmp_file = tmp_file->next;
 			tmp_operator = tmp_operator->next;
@@ -136,13 +136,16 @@ void		ft_handlecommands(char *cmd)
 	t_clist		*all;
 	t_ccommand	*hi;
 	int			builtin;
+	t_clist		*tmplst;
 
 	all = NULL;
 	lst = NULL;
 	all = all_commands(cmd, g_map_env);
+	tmplst = all;
 	builtin = 0;
 	while (all)
 	{
+		g_data.error_detected = 0;
 		lst = (t_clist *)all->data;
 		g_data.list_args = NULL;
 		while (lst)
@@ -157,10 +160,10 @@ void		ft_handlecommands(char *cmd)
 		if (!g_data.error_detected)
 			ft_print_multipiperesult();
 		else
-			printf("Minishell: %s\n", strerror(errno));
-		free_all_commands(&lst);
+			ft_print_error();
 		all = all->next;
 	}
+	free_all_commands(&tmplst);
 }
 
 void		ft_commands_line(void)

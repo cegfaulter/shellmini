@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:01:58 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/20 16:55:38 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/21 14:11:42 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void		print_shell_line(void)
 
 void		ft_set_env_path(void)
 {
+	if (g_data.path_env)
+		free_split(&g_data.path_env);
 	g_data.path_env = ft_split(get(g_map_env, "PATH"), ':');
 }
 
@@ -40,10 +42,10 @@ int			main(int argc, char **argv, char **envp)
 
 	g_map_env = put_vars(envp);
 	ft_init_data(argc, argv, envp);
-	ft_set_env_path();
 	while (1)
 	{
 		print_shell_line();
+		ft_set_env_path();
 		g_data.gnl_return = get_next_line(0, &line);
 		g_data.line = line;
 		ft_commands_line();
@@ -51,6 +53,7 @@ int			main(int argc, char **argv, char **envp)
 		free_globals();
 		line = 0;
 	}
+	clear_map(&g_map_env, free_vars);
 	return (0);
 }
 

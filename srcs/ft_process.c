@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 03:19:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/20 17:02:38 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/21 14:05:49 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,17 @@ void		new_proccess(t_list *tmp_args, int pipefd[], int fd)
 	exit(0);
 }
 
-void		free_tcmd(void)
+void		free_tcmd(char **commands)
 {
-	t_command	*data;
-	int			i;
-	t_list		*tmp;
+	int		i;
 
 	i = 0;
-	tmp = g_data.list_args;
-	while (tmp)
+	while (commands[i])
 	{
-		data = (t_command*)tmp->content;
-		free_split(&(data->command));
-		tmp = tmp->next;
+		free(commands[i]);
+		commands[i] = NULL;
+		i++;
 	}
-	ft_lstclear(&(g_data.list_args), free);
 }
 
 void		ft_print_multipiperesult(void)
@@ -102,10 +98,8 @@ void		ft_print_multipiperesult(void)
 		if (pid == 0)
 			new_proccess(tmp_args, pipefd, fd);
 		else if (pid <= -1)
-			ft_putstr_fd("Minishell: can't create a new process\n", 2);
-		if (((t_command*)tmp_args->content)->builtins == 3 || 
-			((t_command*)tmp_args->content)->builtins == 5 ||
-			((t_command*)tmp_args->content)->builtins == 4)
+			ft_print_error();
+		if (((t_command*)tmp_args->content)->builtins >= 1)
 			ft_runrightcmd(((t_command*)tmp_args->content), 0);
 		wait(NULL);
 		close(pipefd[1]);
@@ -113,5 +107,5 @@ void		ft_print_multipiperesult(void)
 		close(pipefd[0]);
 		tmp_args = tmp_args->next;
 	}
-	//free_tcmd();
+	ft_data_list(g_data.list_args);
 }
