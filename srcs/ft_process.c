@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 03:19:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 14:05:49 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/21 16:48:31 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void		ft_read_or_save(t_list *list)
 	tmp = list;
 	while (tmp)
 	{
-		if (((t_files*)tmp->content)->mode == 0 && tmp->next == NULL)
-			dup2(((t_files*)tmp->content)->fd, 0);
-		else if ((((t_files*)tmp->content)->mode == 1 ||
+		if ((((t_files*)tmp->content)->mode == 1 ||
 				((t_files*)tmp->content)->mode == 2) &&
 				tmp->next == NULL)
 			dup2(((t_files*)tmp->content)->fd, 1);
+		else if (((t_files*)tmp->content)->mode == 0 && tmp->next == NULL)
+			dup2(((t_files*)tmp->content)->fd, 0);
 		else
 			close(((t_files*)tmp->content)->fd);
 		tmp = tmp->next;
@@ -107,5 +107,5 @@ void		ft_print_multipiperesult(void)
 		close(pipefd[0]);
 		tmp_args = tmp_args->next;
 	}
-	ft_data_list(g_data.list_args);
+	ft_data_list(&g_data.list_args);
 }

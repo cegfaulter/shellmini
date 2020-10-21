@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 08:34:56 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 14:08:02 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/21 14:33:52 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	*set_theasbolute(char *path_env, char *command, int *builtins)
 	add_ = ft_strjoin(path_env, "/");
 	absolute_path = ft_strjoin(add_, command);
 	free(add_);
+	add_ = NULL;
 	return (absolute_path);
 }
 
@@ -64,17 +65,21 @@ char	*ft_getabsolute_path(char *command, int *builtins)
 	ft_checkbuiltins(command, builtins);
 	if (*builtins >= 1)
 		return (command);
+	if (!g_data.path_env)
+		return (command);
 	while (g_data.path_env[i])
 	{
 		pdir = opendir(g_data.path_env[i]);
 		if (pdir != NULL)
 		{
 			while ((pdirent = readdir(pdir)) != NULL)
+			{
 				if (ft_strcmp(pdirent->d_name, command) == 0)
 					return (set_theasbolute(g_data.path_env[i],
 							command, builtins));
+			}
+			closedir(pdir);
 		}
-		closedir(pdir);
 		i++;
 	}
 	return (command);

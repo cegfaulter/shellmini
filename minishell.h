@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:00:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 14:05:05 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/21 16:31:02 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,6 @@ typedef struct			s_minishell
 	short int			error_detected;
 }						t_minishell;
 
-typedef struct			s_keyval
-{
-	char				*key;
-	char				*value;
-}						t_keyval;
-
 typedef struct			s_command
 {
 	char				**command;
@@ -59,17 +53,8 @@ typedef struct			s_files
 	int					fd;
 }						t_files;
 
-typedef struct			s_dirent {
-	unsigned long long	d_ino;
-	long long			d_off;
-	unsigned short		d_reclen;
-	unsigned char		d_type;
-	char				d_name[256];
-}						t_dirent;
-
 t_minishell				g_data;
 t_cmap					*g_map_env;
-//char					g_reserved_characters[28] = "&;|*?'\"‘[]()$<>{}#/!~+-/\\";
 
 void					ft_commands_line(void);
 void					ft_free_split(char **data);
@@ -103,7 +88,7 @@ void					free_globals(void);
 
 void					ft_print_error(void);
 
-void					ft_data_list(t_list *list);
+void					ft_data_list(t_list **list);
 
 
 

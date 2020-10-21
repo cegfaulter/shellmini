@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:01:58 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 14:11:42 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/21 14:34:08 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int			main(int argc, char **argv, char **envp)
 	ft_init_data(argc, argv, envp);
 	while (1)
 	{
-		print_shell_line();
 		ft_set_env_path();
+		print_shell_line();
 		g_data.gnl_return = get_next_line(0, &line);
 		g_data.line = line;
 		ft_commands_line();
