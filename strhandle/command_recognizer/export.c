@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 10:05:44 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/21 11:28:26 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/23 13:47:33 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,15 @@ static unsigned int		check_command(const char *text,
 		}
 		else if (text[counter] == '+')
 		{
-			if (text[counter + 1] != '=') {
+			if (text[counter + 1] != '=')
+			{
 				*error = -1;
 				return (counter);
 			}
 		}
 		counter++;
 	}
-	*error = -1;
+	*error = 1;
 	return (counter);
 }
 

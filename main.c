@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:01:58 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 14:34:08 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/23 11:40:16 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int			main(int argc, char **argv, char **envp)
 	g_map_env = put_vars(envp);
 	i = 0;
 	ft_init_data(argc, argv, envp);
+	setv(g_map_env, "?", "0");
 	while (1)
 	{
 		ft_set_env_path();

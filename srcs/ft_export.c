@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 03:24:05 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 11:46:51 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/23 19:29:56 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ int		ft_appendenv(char *arg)
 	return (0);
 }
 
+void	ft_print_export(t_command *item, t_cmap *map)
+{
+	char		**arr;
+
+	arr = from_map_to_arr(map, 2);
+	print_env(arr);
+	free_split(&arr);
+}
+
 void	ft_export(t_command *item, int c)
 {
 	char	**data;
@@ -43,6 +52,8 @@ void	ft_export(t_command *item, int c)
 	char	**env;
 	
 	args = item->command + 1;
+	if (ft_split_length(item->command) <= 1)
+		ft_print_export(item, g_map_env);
 	while (*args)
 	{
 		if (!(data = split_export(*args, "&;|*?'\"‘[]()$<>{}#/!~/\\")))

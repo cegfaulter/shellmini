@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:35:57 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/21 11:21:33 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/23 19:13:28 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ void			free_ccommand(void *cmd);
 void			free_all_commands(t_clist **lst);
 void			free_vars(void *vars);
 void			free_table2d(char ***table);
-char			**from_map_to_arr(t_cmap *map);
+char			**from_map_to_arr(t_cmap *map, int c);
 void			remove_value(t_clist **lst, char *key);
 char            **split_export(const char *text, const char *forbidden);
+t_clist     	*sorted_keys(t_clist **to_sort);
 
 #endif

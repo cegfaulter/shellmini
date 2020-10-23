@@ -6,11 +6,12 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 14:37:32 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/20 12:15:18 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/23 18:59:08 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "linkedlist.h"
+#include "../../../minishell.h"
 
 void	append(t_clist **list, void *data)
 {
@@ -93,7 +94,8 @@ size_t	length(const t_clist *list)
 	len = 0;
 	while (lst)
 	{
-		len++;
+		if (check_reserved_key(lst->data))
+			len++;
 		lst = lst->next;
 	}
 	return (len);

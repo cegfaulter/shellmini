@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:00:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 16:31:02 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/23 19:25:34 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void					free_globals(void);
 void					ft_print_error(void);
 int						ft_split_length(char **data_splitted);
 void					ft_data_list(t_list **list);
+
+int						ft_max(char *str1, char *str2);
+void					print_map(int t);
+void					print_env(char **env_2d);
 
 
 

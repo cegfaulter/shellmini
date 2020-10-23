@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 12:03:37 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 16:41:08 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/23 16:45:20 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	free_globals(void)
 
 void	free_files(t_files *file)
 {
+	close(file->fd);
 	free(file);
 }
 

@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 08:34:56 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 14:33:52 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/23 13:35:01 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ void	ft_checkbuiltins(char *command, int *builtins)
 		*builtins = 7;
 	else
 		*builtins = -1;
+}
+
+int		ft_max(char *str1, char *str2)
+{
+	int		str1len;
+	int		str2len;
+
+	str1len = ft_strlen(str1);
+	str2len = ft_strlen(str2);
+	return (str1len > str2len ? str1len : str2len);
 }
 
 char	*set_theasbolute(char *path_env, char *command, int *builtins)
