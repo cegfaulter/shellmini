@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 04:17:19 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/23 10:28:20 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/10/23 11:30:19 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ int       len_name(char *str)
     len = 0;
     
     if ((str[len] < 'A' || (str[len] > 'Z' && str[len] < 'a') || str[len] > 'z') && str[len] !=  '_' && str[len] != '\n' && str[len])
-        return (1);
+    {
+        if (str[len] >= '0' && str[len] <= '9')
+            return (1);
+        return (0);
+    }
     while (str[len] && str[len] != '\n')
     {
         if  (str[len] < '0' || (str[len] > '9' && str[len] < 'A'))
