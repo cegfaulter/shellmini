@@ -130,49 +130,62 @@ void			ft_createargs(char *cmd, t_rec *cmd_param, int *builtin)
 	ft_lstadd_back(&(g_data.list_args), ft_lstnew(entirecommand));
 }
 
-void		ft_handlecommands(char *cmd)
+t_clist     *all_commands(char *s, t_cmap *global_env)
 {
+    t_clist     *all;
+    char        **cmds;
+    int         iter;
 	t_clist		*lst;
-	t_clist		*all;
 	t_ccommand	*hi;
 	int			builtin;
 	t_clist		*tmplst;
 
-	all = NULL;
-	lst = NULL;
-	all = all_commands(cmd, g_map_env);
-	tmplst = all;
+    all = NULL;
+    cmds = csplit(s, ';');
+    iter = 0;
 	builtin = 0;
-	while (all)
-	{
-		g_data.error_detected = 0;
-		lst = (t_clist *)all->data;
-		g_data.list_args = NULL;
-		while (lst)
+    while (cmds[iter])
+    {
+        append(&all, get_command_line(cmds[iter], g_map_env));
+		tmplst = all;
+		while (all)
 		{
-			hi = (t_ccommand *)lst->data;
-			ft_createargs(
-				ft_getabsolute_path((char *)hi->cmd, &builtin),
-				(t_rec *)hi->data,
-				&builtin);
-			lst = lst->next;
+			g_data.error_detected = 0;
+			lst = (t_clist *)all->data;
+			g_data.list_args = NULL;
+			while (lst)
+			{
+				hi = (t_ccommand *)lst->data;
+				ft_createargs(
+					ft_getabsolute_path((char *)hi->cmd, &builtin),
+					(t_rec *)hi->data,
+					&builtin);
+				lst = lst->next;
+			}
+			if (!g_data.error_detected)
+				ft_print_multipiperesult();
+			else
+				ft_print_error();
+			ft_data_list(&g_data.list_args);
+			all = all->next;
 		}
-		if (!g_data.error_detected)
-			ft_print_multipiperesult();
-		else
-			ft_print_error();
-		all = all->next;
-	}
-	free_all_commands(&tmplst);
+		free_all_commands(&tmplst);
+        iter++;
+    }
+    free_split(&cmds);
+    return (all);
+}
+
+void		ft_handlecommands(char *cmd)
+{
+	t_clist		*all;
+
+	all = NULL;
+	all = all_commands(cmd, g_map_env);
 }
 
 void		ft_commands_line(void)
 {
-	char	**splite_cmds;
-	int		lengthcmds;
-	char	**data_splitted;
-	int		i;
-
 	if (*(g_data.line) == 0 && g_data.gnl_return == 0)
 		ft_ctrl_d();
 

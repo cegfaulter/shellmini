@@ -75,8 +75,11 @@ char	*ft_getabsolute_path(char *command, int *builtins)
 			while ((pdirent = readdir(pdir)) != NULL)
 			{
 				if (ft_strcmp(pdirent->d_name, command) == 0)
+				{
+					closedir(pdir);
 					return (set_theasbolute(g_data.path_env[i],
 							command, builtins));
+				}
 			}
 			closedir(pdir);
 		}

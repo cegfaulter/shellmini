@@ -13,13 +13,15 @@
 #include "recognizer.h"
 
 static unsigned int		check_command(const char *text,
-							int *error, const char *forbidden)
+							int *error, const char *forbidden, unsigned int *after)
 {
 	unsigned int		counter;
 
 	*error = 0;
 	counter = 0;
-	while (text[counter])
+	if (text[0] >= '0' && text[0] <= '9')
+		*error = -1;
+	while (text[counter] && *error != -1)
 	{
 		if (forbidden && in_set(text[counter], (char *)forbidden))
 		{
@@ -28,27 +30,27 @@ static unsigned int		check_command(const char *text,
 				counter++;
 			return (counter);
 		}
-		else if (text[counter] == '=')
+		else if (text[counter] == '=' && counter > 0)
 		{
+			*after = 1;
+			if (text[counter - 1] == '+')
+			{
+				*after = 2;
+				return (counter - 1);
+			}
 			return (counter);
+		}
+		else if (text[counter] == '+')
+		{
+			if (text[counter + 1] != '=') {
+				*error = -1;
+				return (counter);
+			}
 		}
 		counter++;
 	}
-	*error = 1;
+	*error = -1;
 	return (counter);
-}
-
-static void				invalid_context(const char *text, unsigned int counter)
-{
-	unsigned int		iter;
-
-	iter = 0;
-	while (iter < counter)
-	{
-		write(1, &text[iter], 1);
-		iter++;
-	}
-	write(1, "\n", 1);
 }
 
 char					**split_export(const char *text, const char *forbidden)
@@ -56,13 +58,15 @@ char					**split_export(const char *text, const char *forbidden)
 	int					error;
 	unsigned int		count;
 	char				**tuple;
+	unsigned int		after;
 
-	count = check_command(text, &error, (char *)forbidden);
+	after = 0;
+	count = check_command(text, &error, (char *)forbidden, &after);
 	if (error == -1)
 	{
 		return (NULL);
 	}
-	if (!(tuple = malloc(sizeof(char *) * 2)))
+	if (!(tuple = (char**)malloc(sizeof(char *) * 2)))
 		return (NULL);
 	if (error == 1)
 	{
@@ -72,7 +76,7 @@ char					**split_export(const char *text, const char *forbidden)
 	else
 	{
 		tuple[0] = ft_csubstr((char *)text, count);
-		tuple[1] = ft_csubstr((char *)&text[count + 1], ft_cstrlen(text));
+		tuple[1] = ft_csubstr((char *)&text[count + after], ft_cstrlen(text));
 	}
 	return (tuple);
 }

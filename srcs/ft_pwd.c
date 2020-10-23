@@ -16,7 +16,7 @@ void	ft_pwd(int c)
 {
 	if (c == 1)
 	{
-		ft_putstr_fd(g_data.currentdirectory, 1);
+		ft_putstr_fd(get(g_map_env, "PWD"), 1);
 		ft_putstr_fd("\n", 1);
 	}
 }

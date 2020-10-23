@@ -87,7 +87,7 @@ char					*ft_getcurrentdirectory(void);
 void					free_globals(void);
 
 void					ft_print_error(void);
-
+int						ft_split_length(char **data_splitted);
 void					ft_data_list(t_list **list);
 
 

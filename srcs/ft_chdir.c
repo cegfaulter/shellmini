@@ -17,11 +17,11 @@ void		ft_changedirectory(t_command *item, int c)
 	DIR		*pdir;
 	char	*to_directory;
 
-	to_directory = item->command[1] == 0 ? "" : item->command[1];
+	to_directory = item->command[1] == 0 ? get(g_map_env, "HOME") : item->command[1];
 	pdir = opendir(to_directory);
 	if (pdir != NULL)
 	{
-		setv(g_map_env, "OLDPWD", ft_strdup(get(g_map_env, "PWD")));
+		setv(g_map_env, "OLDPWD", ft_getcurrentdirectory());
 		chdir(to_directory);
 		setv(g_map_env, "PWD", ft_getcurrentdirectory());
 	}

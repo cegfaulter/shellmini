@@ -21,20 +21,4 @@ t_clist  *get_commands(char *cmd, t_cmap *envs)
     return (cmds);
 }
 
-t_clist     *all_commands(char *s, t_cmap *global_env)
-{
-    t_clist     *all;
-    char        **cmds;
-    int         iter;
 
-    all = NULL;
-    cmds = csplit(s, ';');
-    iter = 0;
-    while (cmds[iter])
-    {
-        append(&all, get_command_line(cmds[iter], global_env));
-        iter++;
-    }
-    free_split(&cmds);
-    return (all);
-}

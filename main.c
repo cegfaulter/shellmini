@@ -39,22 +39,23 @@ void		ft_set_env_path(void)
 int			main(int argc, char **argv, char **envp)
 {
 	char	*line;
+	int		i;
 
 	g_map_env = put_vars(envp);
+	i = 0;
 	ft_init_data(argc, argv, envp);
 	while (1)
 	{
 		ft_set_env_path();
-		print_shell_line();
 		g_data.gnl_return = get_next_line(0, &line);
+		if (g_data.gnl_return == 0)
+			exit(0);
 		g_data.line = line;
 		ft_commands_line();
 		free(line);
+		line = NULL;
 		free_globals();
-		line = 0;
 	}
 	clear_map(&g_map_env, free_vars);
 	return (0);
 }
-
-

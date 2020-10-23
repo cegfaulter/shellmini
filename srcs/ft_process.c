@@ -86,7 +86,6 @@ void		ft_print_multipiperesult(void)
 	t_list	*tmp_args;
 	pid_t	pid;
 	int		pipefd[2];
-	char	*data;
 	int		fd;
 
 	tmp_args = g_data.list_args;
@@ -107,5 +106,4 @@ void		ft_print_multipiperesult(void)
 		close(pipefd[0]);
 		tmp_args = tmp_args->next;
 	}
-	ft_data_list(&g_data.list_args);
 }

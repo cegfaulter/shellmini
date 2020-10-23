@@ -17,6 +17,7 @@ void	ft_echo_builtins(t_command *item, int c)
 	char	**command_line;
 	int		i;
 	int		newline;
+	int		len;
 
 	i = 1;
 	newline = 1;
@@ -28,7 +29,8 @@ void	ft_echo_builtins(t_command *item, int c)
 			newline = 0;
 			i++;
 		}
-		while (command_line[i])
+		len = ft_split_length(command_line);
+		while (i < len)
 		{
 			ft_putstr_fd(command_line[i], 1);
 			if (command_line[i + 1] != 0)

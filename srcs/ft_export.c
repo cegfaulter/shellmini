@@ -22,22 +22,40 @@ void	ft_print_key_name(char *arg)
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
+int		ft_appendenv(char *arg)
+{
+	int		i;
+
+	i = 0;
+	while (*arg)
+	{
+		if (*(arg) == '+' && *(arg + 1) == '=')
+			return (1);
+		arg++;
+	}
+	return (0);
+}
+
 void	ft_export(t_command *item, int c)
 {
 	char	**data;
 	char	**args;
+	char	**env;
 	
 	args = item->command + 1;
 	while (*args)
 	{
-		if (!(data = split_export(*args, "&;|*?'\"‘[]()$<>{}#/!~+-/\\")))
+		if (!(data = split_export(*args, "&;|*?'\"‘[]()$<>{}#/!~/\\")))
 		{
 			ft_putstr_fd("Minishell: export: '", 2);
 			ft_print_key_name(*args);
 		}
 		else
 		{
-			setv(g_map_env, data[0], ft_cstrdup(data[1]));
+			if (ft_appendenv(*args))
+				setv(g_map_env, data[0], ft_strjoin(get(g_map_env, data[0]), data[1]));
+			else
+				setv(g_map_env, data[0], ft_cstrdup(data[1]));
 			free(data[0]);
 			free(data[1]);
 			free(data);
