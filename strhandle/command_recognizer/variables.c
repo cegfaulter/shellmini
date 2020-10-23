@@ -6,21 +6,22 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 04:17:19 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/23 09:39:34 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/10/23 10:15:53 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "recognizer.h"
+#include <stdio.h>
 
 int       len_name(char *str)
 {
     int     len;
 
     len = 0;
-    if ((str[len] < 'A' || (str[len] > 'Z' && str[len] < 'a') || str[len] > 'z') && str[len] !=  '_')
+    
+    if ((str[len] < 'A' || (str[len] > 'Z' && str[len] < 'a') || str[len] > 'z') && str[len] !=  '_' && str[len] != '\n' && str[len])
         return (1);
-    len++;
-    while (str[len])
+    while (str[len] && str[len] != '\n')
     {
         if  (str[len] < '0' || (str[len] > '9' && str[len] < 'A'))
             break;
