@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 07:08:12 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/23 10:42:00 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/10/23 10:47:15 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,24 @@
 void        enter(char  *str, int *iter, t_cmap *map, t_clist **lst)
 {
     char       *s;
+    int        ignored;
 
     s = NULL;
+    ignored = 0;
     while (str[*iter] && !in_set(str[*iter]," ><"))
     {
         if (str[*iter] == '\'' || str[*iter] == '"')
+        {
             s = ft_cstrjoin(s, single_double_quotes(str, iter, str[*iter], map));
+            ignored = 0;
+        }
         else
+        {
             s = ft_cstrjoin(s, withback(str, map, iter));
+            ignored = 1;
+        }
     }
-    if (*s)
+    if (*s || !ignored)
         append(lst, s);
 }
 
