@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 07:08:12 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/03/12 13:46:43 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/10/23 10:42:00 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void        enter(char  *str, int *iter, t_cmap *map, t_clist **lst)
         else
             s = ft_cstrjoin(s, withback(str, map, iter));
     }
-    append(lst, s);
+    if (*s)
+        append(lst, s);
 }
 
 void        get_oper(char *str, int *iter, t_clist **operator)

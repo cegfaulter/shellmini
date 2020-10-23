@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 04:17:19 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/23 10:15:53 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/10/23 10:28:20 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int      var_len(char *str, int *iter, t_cmap *map)
     str++;
     len = len_name(str);
     if (!len)
-        return (1);
+        return (0);
     var = ft_csubstr(str, len);
     *iter += len;
     len = ft_cstrlen(get(map, var));
