@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:01:58 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/23 11:40:16 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 12:54:10 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,18 @@ int			main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	int		i;
+	int		status;
 
 	g_map_env = put_vars(envp);
 	i = 0;
 	ft_init_data(argc, argv, envp);
-	setv(g_map_env, "?", "0");
 	while (1)
 	{
 		ft_set_env_path();
+		// printf("%s\n", get(g_map_env, "?"));
 		g_data.gnl_return = get_next_line(0, &line);
 		if (g_data.gnl_return == 0)
-			exit(0);
+			exit(ft_atoi(get(g_map_env, "?")));
 		g_data.line = line;
 		ft_commands_line();
 		free(line);
@@ -58,5 +59,5 @@ int			main(int argc, char **argv, char **envp)
 		free_globals();
 	}
 	clear_map(&g_map_env, free_vars);
-	return (0);
+	return (ft_atoi(get(g_map_env, "?")));
 }

@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 03:19:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/23 17:20:29 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 12:56:42 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		ft_read_or_save(t_list *list)
 	}
 }
 
-void		execute_cmd(t_command *cmd)
+int		execute_cmd(t_command *cmd)
 {
 	int		status;
 
@@ -48,6 +48,7 @@ void		execute_cmd(t_command *cmd)
 			ft_putstr_fd(": command not found\n", 2);
 		}
 	}
+	return (status == -1 ? 32385 : status);
 }
 
 void		close_fd(fd, pipe_fd_1, pipe_fd_2)	
@@ -59,13 +60,15 @@ void		close_fd(fd, pipe_fd_1, pipe_fd_2)
 
 void		new_proccess(t_list *tmp_args, int pipefd[], int fd)
 {
+	int		status;
+
 	dup2(fd, 0);
 	if (tmp_args->next != NULL)
 		dup2(pipefd[1], 1);
 	ft_read_or_save(((t_command*)tmp_args->content)->files);
-	execute_cmd(((t_command*)tmp_args->content));
+	status = execute_cmd(((t_command*)tmp_args->content));
 	close_fd(fd, pipefd[0], pipefd[1]);
-	exit(0);
+	exit(status / 255);
 }
 
 void		ft_print_multipiperesult(void)
@@ -86,9 +89,11 @@ void		ft_print_multipiperesult(void)
 			new_proccess(tmp_args, pipefd, fd);
 		else if (pid <= -1)
 			ft_print_error();
+		waitpid(pid, &status, 0);
 		if (((t_command*)tmp_args->content)->builtins >= 1)
 			ft_runrightcmd(((t_command*)tmp_args->content), 0);
-		waitpid(pid, &status, 0);
+		else
+			setv(g_map_env, "?", ft_itoa(status / 255));
 		close(pipefd[1]);
 		fd = dup(pipefd[0]);
 		close(pipefd[0]);

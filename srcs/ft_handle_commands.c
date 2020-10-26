@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 09:16:32 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/23 14:16:33 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 12:50:51 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		ft_ctrl_d(void)
 {
 	ft_putstr_fd("exit\n", 2);
-	exit(0);
+	exit(10);
 }
 
 void		ft_free_split(char **data)

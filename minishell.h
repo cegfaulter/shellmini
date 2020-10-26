@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:00:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/23 19:25:34 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 10:55:44 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char					*ft_getabsolute_path(char *command, int *builtins);
 int						ft_strcmp(char *s1, char *s2);
 void					ft_unset(t_command *item, int c);
 void					ft_export(t_command *item, int c);
-void					ft_exit(int c);
+void					ft_exit(t_command *item, int c);
 char					*ft_getcurrentdirectory(void);
 void					free_globals(void);
 

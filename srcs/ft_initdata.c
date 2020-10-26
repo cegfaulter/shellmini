@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:25:05 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 14:26:06 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 12:24:47 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ void		ft_set_homedirectory(void)
 void		ft_init_data(int argc, char **argv, char **envp)
 {
 	ft_set_homedirectory();
+	setv(g_map_env, "?", ft_cstrdup("0"));
 }

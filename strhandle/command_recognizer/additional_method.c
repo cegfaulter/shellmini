@@ -84,10 +84,12 @@ char			**from_map_to_arr(t_cmap *map, int c)
 	char		**arr;
 	t_clist		*key;
 	int			iter;
+	char		*tmp;
 
 	g_reserved = ft_split("? 1 2 3 4 5 6 7 8 9", ' ');
 	keys = get_keys(map);
-	arr = malloc(sizeof(char *) * (length(keys) + 1));
+	if (!(arr = malloc(sizeof(char *) * (length(keys) + 1))))
+		return (NULL);
 	keys = sorted_keys(&keys);
 	key = keys;
 	iter = 0;
@@ -100,12 +102,14 @@ char			**from_map_to_arr(t_cmap *map, int c)
 				arr[iter] = ft_cstrjoin(ft_cstrdup(key->data), ft_cstrdup("="));
 				arr[iter] = ft_cstrjoin(arr[iter], ft_cstrdup(get(map, key->data)));
 			}
-			else
+			else if (c == 2)
 			{
-				arr[iter] = ft_cstrjoin(ft_cstrdup("declare -x "), ft_cstrdup(key->data));
-				arr[iter] = ft_cstrjoin(arr[iter], ft_cstrdup("=\""));
-				arr[iter] = ft_cstrjoin(arr[iter], ft_cstrdup(get(g_map_env, key->data)));
-				arr[iter] = ft_cstrjoin(arr[iter], ft_cstrdup("\""));
+				tmp = get(g_map_env, key->data);
+				if (ft_strlen(tmp) <= 0)
+					print("declare -x %s\n", key->data, get(g_map_env, key->data));
+				else
+					print("declare -x %s=\"%s\"\n", key->data, get(g_map_env, key->data));
+				free(tmp);
 			}
 			iter++;
 		}

@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 11:12:57 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/21 12:06:17 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 10:55:30 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void	ft_runrightcmd(t_command *item, int c)
 		free_split(&env);
 	}
 	else if (item->builtins == 7)
-		ft_exit(c);
+		ft_exit(item, c);
 }

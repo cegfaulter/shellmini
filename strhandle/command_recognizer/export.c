@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 10:05:44 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/23 13:47:33 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 08:39:18 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ static unsigned int		check_command(const char *text,
 
 	*error = 0;
 	counter = 0;
-	if (text[0] >= '0' && text[0] <= '9')
+	if ((text[0] >= '0' && text[0] <= '9') || text[0] == '=')
+	{
 		*error = -1;
+		return (counter);
+	}
 	while (text[counter] && *error != -1)
 	{
 		if (forbidden && in_set(text[counter], (char *)forbidden))

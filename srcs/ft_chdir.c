@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:17:58 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/23 14:14:51 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 13:00:00 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void		ft_changedirectory(t_command *item, int c)
 	}
 	else
 	{
+		setv(g_map_env, "?", ft_itoa(1));
 		if (c == 0)
 			ft_print_error();
 	}
-	closedir(pdir);
+	if (pdir)
+		closedir(pdir);
 }

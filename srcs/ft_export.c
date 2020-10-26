@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 03:24:05 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/23 19:29:56 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 12:29:09 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,18 @@ void	ft_export(t_command *item, int c)
 	char	**env;
 	
 	args = item->command + 1;
-	if (ft_split_length(item->command) <= 1)
+	if (ft_split_length(item->command) <= 1 && c == 1)
 		ft_print_export(item, g_map_env);
 	while (*args)
 	{
 		if (!(data = split_export(*args, "&;|*?'\"‘[]()$<>{}#/!~/\\")))
 		{
-			ft_putstr_fd("Minishell: export: '", 2);
-			ft_print_key_name(*args);
+			if (c == 1)
+			{
+				ft_putstr_fd("Minishell: export: '", 2);
+				ft_print_key_name(*args);
+			}
+			setv(g_map_env, "?", ft_cstrdup("1"));
 		}
 		else
 		{
