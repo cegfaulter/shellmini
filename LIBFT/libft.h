@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 15:23:51 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/26 12:17:04 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 13:13:21 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char				*ft_strrchr(const char *str, int c);
 char				*ft_strnstr(const char *str,
 						const char *needle, size_t len);
 int					ft_strncmp(const char *str1, const char *str2, size_t n);
-int					ft_atoi(const char *str);
+long long			ft_atoi(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);

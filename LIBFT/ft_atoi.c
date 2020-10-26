@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 23:55:40 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/26 12:07:51 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 13:13:55 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int		white_digit(int c, int d)
 	return (-1);
 }
 
-static int		checkoverint(long int number, int sym)
+long long		checkoverint(long long number, int sym)
 {
 	if (sym == 2)
 		number *= -1;
@@ -35,9 +35,9 @@ static int		checkoverint(long int number, int sym)
 	return (-33);
 }
 
-int				ft_atoi(const char *str)
+long long		ft_atoi(const char *str)
 {
-	long int	number;
+	long long	number;
 	int			c;
 
 	number = 0;
@@ -54,8 +54,8 @@ int				ft_atoi(const char *str)
 	{
 		number += *str - '0';
 		number *= 10;
-		if (checkoverint(number, c) != -33)
-			return (checkoverint(number, c));
+		// if (checkoverint(number, c) != -33)
+		// 	return (checkoverint(number, c));
 		str++;
 	}
 	if (c == 2)

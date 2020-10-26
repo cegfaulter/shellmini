@@ -6,7 +6,7 @@
 /*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 03:19:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/26 12:56:42 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/26 14:07:23 by settaqi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,13 @@ void		ft_print_multipiperesult(void)
 			new_proccess(tmp_args, pipefd, fd);
 		else if (pid <= -1)
 			ft_print_error();
-		waitpid(pid, &status, 0);
+		waitpid(pid, &status, WUNTRACED);
 		if (((t_command*)tmp_args->content)->builtins >= 1)
 			ft_runrightcmd(((t_command*)tmp_args->content), 0);
 		else
 			setv(g_map_env, "?", ft_itoa(status / 255));
 		close(pipefd[1]);
+		close(fd);
 		fd = dup(pipefd[0]);
 		close(pipefd[0]);
 		tmp_args = tmp_args->next;
