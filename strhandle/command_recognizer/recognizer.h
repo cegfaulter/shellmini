@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recognizer.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:35:57 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/23 19:13:28 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/27 11:53:16 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ char			**from_map_to_arr(t_cmap *map, int c);
 void			remove_value(t_clist **lst, char *key);
 char            **split_export(const char *text, const char *forbidden);
 t_clist     	*sorted_keys(t_clist **to_sort);
-
+//check_duplicates
+int 			ft_cduplicate(char *str, char c);
 #endif

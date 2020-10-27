@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 07:10:13 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/03/12 13:53:52 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/10/27 11:54:50 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,11 @@ t_clist      *get_command_line(char *cmd, t_cmap *global_vars)
     int             iter;
 
     all_cmds = NULL;
+    if (ft_cduplicate(cmd, '|'))
+        return (NULL);
     commands = csplit(cmd,'|');
+    for (int i = 0; commands[i]; i++)
+        print("%s\n", commands[i]);
     iter = 0;
     while (commands[iter])
     {

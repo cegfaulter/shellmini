@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_handle_commands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 09:16:32 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/26 12:50:51 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/27 12:08:46 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ t_clist     *all_commands(char *s, t_cmap *global_env)
 	t_clist		*tmplst;
 
     all = NULL;
+	if (ft_cduplicate(s, ';'))
+		return all;
     cmds = csplit(s, ';');
     iter = 0;
 	builtin = 0;
