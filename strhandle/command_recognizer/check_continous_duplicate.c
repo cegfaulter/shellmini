@@ -8,7 +8,7 @@ static int      ft_cduplicate(char *str, char c)
     iter = 1;
     if (!*str)
         return (0);
-    if (*str==c)
+    if (*str==c && *(str + 1) != c)
         return (1);
     while (str[iter])
     {
@@ -42,7 +42,7 @@ int             ft_cduplicate_semi(char *str)
         return (ret);
     if (ret == 1)
         g_data.error_detected = 8;
-    if (ret == 2)
+    else if (ret == 2)
         g_data.error_detected = 7;
     if (ret == 3)
         return (0);
