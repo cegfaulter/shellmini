@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: settaqi <settaqi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:00:20 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/26 10:55:44 by settaqi          ###   ########.fr       */
+/*   Updated: 2020/10/29 10:34:44 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@
 # include "strhandle/command_recognizer/recognizer.h"
 # include <errno.h>
 # include <string.h>
+
+//ERROR HANDLING
+// CHECK ERROR | --> 5
+// CHECK ERROR || --> 6
+// CHECK ERROR ; --> 8
+// CHECK ERROR ;; --> 7
 
 typedef struct			s_minishell
 {
@@ -77,7 +83,15 @@ void					ft_changedirectory(t_command *item, int c);
 void					update_env_global_variable(void);
 char					*ft_join_char_str(char *str, char ch);
 char					**update_print_env(int c);
+
+
+
+
 void					ft_pwd(int c);
+
+
+
+
 char					*ft_getabsolute_path(char *command, int *builtins);
 int						ft_strcmp(char *s1, char *s2);
 void					ft_unset(t_command *item, int c);
@@ -93,7 +107,5 @@ void					ft_data_list(t_list **list);
 int						ft_max(char *str1, char *str2);
 void					print_map(int t);
 void					print_env(char **env_2d);
-
-
 
 #endif

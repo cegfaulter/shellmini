@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:35:57 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/27 11:53:16 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/10/29 10:38:02 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ void			remove_value(t_clist **lst, char *key);
 char            **split_export(const char *text, const char *forbidden);
 t_clist     	*sorted_keys(t_clist **to_sort);
 //check_duplicates
-int 			ft_cduplicate(char *str, char c);
+int 			ft_cduplicate_or(char *str);
+int				ft_cduplicate_semi(char *str);
 #endif

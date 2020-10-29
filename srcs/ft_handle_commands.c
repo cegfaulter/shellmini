@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 09:16:32 by settaqi           #+#    #+#             */
-/*   Updated: 2020/10/27 12:08:46 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/10/29 10:45:33 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ t_clist     *all_commands(char *s, t_cmap *global_env)
 	t_clist		*tmplst;
 
     all = NULL;
-	if (ft_cduplicate(s, ';'))
-		return all;
+	if (ft_cduplicate_or(s) || ft_cduplicate_semi(s))
+		return (NULL);
     cmds = csplit(s, ';');
     iter = 0;
 	builtin = 0;
