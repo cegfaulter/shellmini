@@ -142,7 +142,10 @@ t_clist     *all_commands(char *s, t_cmap *global_env)
 
     all = NULL;
 	if (ft_cduplicate_or(s) || ft_cduplicate_semi(s))
+	{
+		ft_print_error();
 		return (NULL);
+	}
     cmds = csplit(s, ';');
     iter = 0;
 	builtin = 0;

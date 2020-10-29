@@ -48,7 +48,6 @@ int			main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		ft_set_env_path();
-		// printf("%s\n", get(g_map_env, "?"));
 		g_data.gnl_return = get_next_line(0, &line);
 		if (g_data.gnl_return == 0)
 			exit(ft_atoi(get(g_map_env, "?")));

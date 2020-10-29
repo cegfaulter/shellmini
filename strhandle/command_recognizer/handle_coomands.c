@@ -140,8 +140,6 @@ t_clist      *get_command_line(char *cmd, t_cmap *global_vars)
 
     all_cmds = NULL;
     commands = csplit(cmd,'|');
-    for (int i = 0; commands[i]; i++)
-        print("%s\n", commands[i]);
     iter = 0;
     while (commands[iter])
     {
