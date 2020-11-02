@@ -83,7 +83,11 @@ void			ft_putfiles(t_rec *list, t_command *cmd)
 	t_files		*file;
 
 	if (ft_lstsize((t_list*)list->files) != ft_lstsize((t_list*)list->oper))
+	{
 		g_data.error_detected = 2;
+		cmd->files = NULL;
+		setv(g_map_env, "?", ft_cstrdup("2"));
+	}
 	else
 	{
 		cmd->files = NULL;
@@ -141,10 +145,12 @@ t_clist     *all_commands(char *s, t_cmap *global_env)
 	t_clist		*tmplst;
 
     all = NULL;
+
 	if (ft_cduplicate_or(s) || ft_cduplicate_semi(s))
 	{
 		ft_print_error();
-		return (NULL);
+		setv(g_map_env, "?", ft_cstrdup("2"));
+		return (all);
 	}
     cmds = csplit(s, ';');
     iter = 0;

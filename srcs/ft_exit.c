@@ -48,8 +48,13 @@ char	*ft_status(t_command *item)
 
 void	ft_exit(t_command *item, int c)
 {
+	int		status;
+
+	status = ft_atoi(get(g_map_env, "?"));
 	if (c == 1)
 		ft_putstr_fd("exit", 2);
+	else if(status > 0)
+		exit(status);
 	else
 		exit(ft_atoi(ft_status(item)));
 }

@@ -59,6 +59,12 @@ typedef struct			s_files
 	int					fd;
 }						t_files;
 
+typedef struct			s_files_
+{
+	char				*filename;
+	int					fd;
+}						t_files_;
+
 t_minishell				g_data;
 t_cmap					*g_map_env;
 

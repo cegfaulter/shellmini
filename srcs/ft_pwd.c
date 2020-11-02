@@ -14,9 +14,13 @@
 
 void	ft_pwd(int c)
 {
+	char	*directory;
+
 	if (c == 1)
 	{
-		ft_putstr_fd(get(g_map_env, "PWD"), 1);
+		directory = ft_getcurrentdirectory();
+		ft_putstr_fd(directory, 1);
 		ft_putstr_fd("\n", 1);
+		free(directory);
 	}
 }

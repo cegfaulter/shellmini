@@ -27,7 +27,8 @@ void	free_t_commands(t_command *command)
 {
 	if (command->builtins == 0)
 		free(command->command[0]);
-	ft_lstclear(&command->files, (void*)free_files);
+	if (command->files)
+		ft_lstclear(&command->files, (void*)free_files);
 	free(command->command);
 	command->command = NULL;
 	free(command);

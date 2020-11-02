@@ -72,6 +72,8 @@ char	*ft_getabsolute_path(char *command, int *builtins)
 	struct dirent	*pdirent;
 
 	i = 0;
+	if (command == NULL)
+		return (ft_cstrdup(""));
 	ft_checkbuiltins(command, builtins);
 	if (*builtins >= 1)
 		return (command);
