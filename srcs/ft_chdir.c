@@ -24,8 +24,6 @@ void		ft_changedirectory(t_command *item, int c)
 		setv(g_map_env, "OLDPWD", ft_getcurrentdirectory());
 		chdir(to_directory);
 		setv(g_map_env, "PWD", ft_getcurrentdirectory());
-		if (ft_strcmp(get(g_map_env, "OLDPWD"), ft_getcurrentdirectory()) == 0)
-			setv(g_map_env, "PWD", ft_strjoin(get(g_map_env, "PWD"), "/."));
 	}
 	else
 	{

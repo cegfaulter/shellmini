@@ -17,15 +17,17 @@ void		print_shell_line(void)
 	int		i;
 
 	i = 0;
-	g_data.currentdirectory = ft_getcurrentdirectory();
-	if (g_data.home_directory != NULL)
-	{
-		if (ft_strncmp(g_data.home_directory, g_data.currentdirectory,
-				ft_strlen(g_data.home_directory)) == 0)
-			print("~%s $ ", g_data.currentdirectory +
-				ft_strlen(g_data.home_directory));
-		else
-			print("%s $ ", g_data.currentdirectory);
+	if (g_data.print_shell_line == 1) {
+		g_data.currentdirectory = ft_getcurrentdirectory();
+		if (g_data.home_directory != NULL)
+		{
+			if (ft_strncmp(g_data.home_directory, g_data.currentdirectory,
+					ft_strlen(g_data.home_directory)) == 0)
+				print("~%s $ ", g_data.currentdirectory +
+					ft_strlen(g_data.home_directory));
+			else
+				print("%s $ ", g_data.currentdirectory);
+		}
 	}
 }
 
@@ -45,12 +47,21 @@ int			main(int argc, char **argv, char **envp)
 	g_map_env = put_vars(envp);
 	i = 0;
 	ft_init_data(argc, argv, envp);
+	ft_signal();
+	g_data.print_shell_line = 0;
 	while (1)
 	{
+		g_data.error_detected = 0;
 		ft_set_env_path();
+		print_shell_line();
 		g_data.gnl_return = get_next_line(0, &line);
 		if (g_data.gnl_return == 0)
+		{
+			ft_putstr_fd("exit\n", 2);
 			exit(ft_atoi(get(g_map_env, "?")));
+		}
+		if (g_data.error_detected == 9)
+			continue ;
 		g_data.line = line;
 		ft_commands_line();
 		free(line);

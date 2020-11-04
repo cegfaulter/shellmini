@@ -73,19 +73,12 @@ int		execute_cmd(t_command *cmd)
 {
 	int		status;
 
+	status = 0;
 	if (cmd->builtins >= 1)
 		ft_runrightcmd(cmd, 1);
-	else
-	{
+	else if (cmd->builtins == 0)
 		status = execve(cmd->command[0], cmd->command, update_print_env(0));
-		if (status == -1)
-		{
-			ft_putstr_fd("Minishell: ", 2);
-			ft_putstr_fd(cmd->command[0], 2);
-			ft_putstr_fd(": command not found\n", 2);
-		}
-	}
-	return (status == -1 ? 32385 : status);
+	return (status);
 }
 
 void		close_fd(fd, pipe_fd_1, pipe_fd_2)	
@@ -104,7 +97,7 @@ void		new_proccess(t_list *tmp_args, int pipefd[], int fd)
 	ft_read_or_save(((t_command*)tmp_args->content)->files, fd);
 	status = execute_cmd(((t_command*)tmp_args->content));
 	close_fd(fd, pipefd[0], pipefd[1]);
-	exit(status / 255);
+	exit(status);
 }
 
 void		ft_print_multipiperesult(void)
@@ -114,9 +107,11 @@ void		ft_print_multipiperesult(void)
 	int		pipefd[2];
 	int		fd;
 	int		status;
+	int		w_pid;
 
 	tmp_args = g_data.list_args;
 	fd = -1;
+	status = 0;
 	while (tmp_args)
 	{
 		pipe(pipefd);
@@ -125,11 +120,14 @@ void		ft_print_multipiperesult(void)
 			new_proccess(tmp_args, pipefd, fd);
 		else if (pid <= -1)
 			ft_print_error();
-		waitpid(pid, &status, WUNTRACED);
+		w_pid = waitpid(-1, &status, WNOHANG); // Error if execve return -1 can't access returned value
 		if (((t_command*)tmp_args->content)->builtins >= 1)
 			ft_runrightcmd(((t_command*)tmp_args->content), 0);
-		else
-			setv(g_map_env, "?", ft_itoa(status / 255));
+		
+		if (((t_command*)tmp_args->content)->builtins == 0)
+			setv(g_map_env, "?", ft_itoa(status / 256));
+		else if (((t_command*)tmp_args->content)->builtins == -1)
+			setv(g_map_env, "?", ft_strdup("127"));
 		close(pipefd[1]);
 		close(fd);
 		fd = dup(pipefd[0]);

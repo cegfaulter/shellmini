@@ -12,12 +12,6 @@
 
 #include "../minishell.h"
 
-void		ft_ctrl_d(void)
-{
-	ft_putstr_fd("exit\n", 2);
-	exit(10);
-}
-
 void		ft_free_split(char **data)
 {
 	int		i;
@@ -152,6 +146,7 @@ t_clist     *all_commands(char *s, t_cmap *global_env)
 		setv(g_map_env, "?", ft_cstrdup("2"));
 		return (all);
 	}
+	//printf("%d | %d\n", ft_cduplicate_or(s), ft_cduplicate_semi(s));
     cmds = csplit(s, ';');
     iter = 0;
 	builtin = 0;
@@ -197,8 +192,5 @@ void		ft_handlecommands(char *cmd)
 
 void		ft_commands_line(void)
 {
-	if (*(g_data.line) == 0 && g_data.gnl_return == 0)
-		ft_ctrl_d();
-
 	ft_handlecommands(g_data.line);
 }

@@ -1,6 +1,18 @@
 
 #include "../../minishell.h"
 
+static int		ft_ccheck_nexts(char *str, char c)
+{
+	unsigned int	iter;
+
+	iter = 0;
+	while (str[iter] && str[iter] == ' ')
+		iter++;
+	if (str[iter] == c)
+		return (1);
+	return (0);
+}
+
 static int      ft_cduplicate(char *str, char c)
 {
     unsigned int    iter;
@@ -14,6 +26,11 @@ static int      ft_cduplicate(char *str, char c)
     {
         if (str[iter - 1] == str[iter] && str[iter] == c)
             return (2);
+		if (str[iter] == c && ft_ccheck_nexts(str + iter + 1, c))
+		{
+			iter += 1;
+			break ;
+		}
         iter++;
     }
     if (str[iter - 1] == c)
@@ -40,11 +57,11 @@ int             ft_cduplicate_semi(char *str)
 
     if (!(ret = ft_cduplicate(str, ';')))
         return (ret);
-    if (ret == 1)
+    if (ret == 1 || ret == 3)
         g_data.error_detected = 8;
     else if (ret == 2)
         g_data.error_detected = 7;
-    if (ret == 3)
-        return (0);
+    // if (ret == 3)
+    //     return (0);
     return (1);
 }

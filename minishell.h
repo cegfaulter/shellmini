@@ -14,6 +14,8 @@
 
 # define MINISHELL_H
 # define BUFFER_SIZE 100
+# define SIGINT  2
+# define SIGQUIT 3
 
 # include <stdio.h>
 # include <unistd.h>
@@ -42,6 +44,7 @@ typedef struct			s_minishell
 	t_list				*list_args;
 	char				**path_env;
 	short int			error_detected;
+	short int			print_shell_line;
 }						t_minishell;
 
 typedef struct			s_command
@@ -109,9 +112,10 @@ void					free_globals(void);
 void					ft_print_error(void);
 int						ft_split_length(char **data_splitted);
 void					ft_data_list(t_list **list);
-
+void					print_shell_line(void);
 int						ft_max(char *str1, char *str2);
 void					print_map(int t);
 void					print_env(char **env_2d);
+void					ft_signal(void);
 
 #endif
