@@ -45,6 +45,7 @@ typedef struct			s_minishell
 	char				**path_env;
 	short int			error_detected;
 	short int			print_shell_line;
+	pid_t				current_pid;
 }						t_minishell;
 
 typedef struct			s_command

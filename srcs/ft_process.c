@@ -100,6 +100,43 @@ void		new_proccess(t_list *tmp_args, int pipefd[], int fd)
 	exit(status);
 }
 
+void		ft_kill_process(int signal)
+{
+	kill(g_data.current_pid, SIGKILL);
+}
+
+void		ft_new_signals()
+{
+	signal(SIGINT, &ft_kill_process);
+}
+
+int			ft_delay_next(pid_t pid, t_list *next)
+{
+	unsigned int	iter;
+	int				w_pid;
+	int				status;
+
+	iter = 0;
+	ft_new_signals();
+	g_data.current_pid = pid;
+	while (!(w_pid = waitpid(pid, &status, WNOHANG)))
+	{
+		if (iter >= 500000 && next != NULL)
+		{
+			kill(pid, SIGKILL);
+			break ;
+		}
+		if (w_pid == -1)
+		{
+			kill(pid, SIGKILL);
+			strerror(errno);
+			break ;
+		}
+		iter++;
+	}
+	return (status);
+}
+
 void		ft_print_multipiperesult(void)
 {
 	t_list	*tmp_args;
@@ -120,7 +157,9 @@ void		ft_print_multipiperesult(void)
 			new_proccess(tmp_args, pipefd, fd);
 		else if (pid <= -1)
 			ft_print_error();
-		w_pid = waitpid(-1, &status, WNOHANG); // Error if execve return -1 can't access returned value
+
+		status = ft_delay_next(pid, tmp_args->next);
+
 		if (((t_command*)tmp_args->content)->builtins >= 1)
 			ft_runrightcmd(((t_command*)tmp_args->content), 0);
 		
