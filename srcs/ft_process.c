@@ -103,6 +103,7 @@ void		new_proccess(t_list *tmp_args, int pipefd[], int fd)
 void		ft_kill_process(int signal)
 {
 	kill(g_data.current_pid, SIGKILL);
+	ft_putstr_fd("\n", 2);
 }
 
 void		ft_new_signals()
@@ -118,7 +119,6 @@ int			ft_delay_next(pid_t pid, t_list *next)
 
 	iter = 0;
 	ft_new_signals();
-	g_data.current_pid = pid;
 	while (!(w_pid = waitpid(pid, &status, WNOHANG)))
 	{
 		if (iter >= 500000 && next != NULL)
@@ -149,6 +149,7 @@ void		ft_print_multipiperesult(void)
 	tmp_args = g_data.list_args;
 	fd = -1;
 	status = 0;
+	//ft_putstr_fd(ft_itoa_llu(ft_atoi_llu("9223372036854775806")), 1);
 	while (tmp_args)
 	{
 		pipe(pipefd);
@@ -157,7 +158,7 @@ void		ft_print_multipiperesult(void)
 			new_proccess(tmp_args, pipefd, fd);
 		else if (pid <= -1)
 			ft_print_error();
-
+		g_data.current_pid = pid;
 		status = ft_delay_next(pid, tmp_args->next);
 
 		if (((t_command*)tmp_args->content)->builtins >= 1)

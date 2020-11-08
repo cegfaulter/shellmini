@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-static void	filltheplaces(long int number, int n, char *ptr, long int han)
+static void	filltheplaces(long number, int n, char *ptr, long int han)
 {
 	int		i;
 

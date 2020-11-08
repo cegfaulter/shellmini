@@ -69,6 +69,8 @@ typedef struct			s_files_
 	int					fd;
 }						t_files_;
 
+typedef unsigned long long int		ULLI;
+
 t_minishell				g_data;
 t_cmap					*g_map_env;
 
@@ -93,15 +95,7 @@ void					ft_changedirectory(t_command *item, int c);
 void					update_env_global_variable(void);
 char					*ft_join_char_str(char *str, char ch);
 char					**update_print_env(int c);
-
-
-
-
 void					ft_pwd(int c);
-
-
-
-
 char					*ft_getabsolute_path(char *command, int *builtins);
 int						ft_strcmp(char *s1, char *s2);
 void					ft_unset(t_command *item, int c);
@@ -109,7 +103,6 @@ void					ft_export(t_command *item, int c);
 void					ft_exit(t_command *item, int c);
 char					*ft_getcurrentdirectory(void);
 void					free_globals(void);
-
 void					ft_print_error(void);
 int						ft_split_length(char **data_splitted);
 void					ft_data_list(t_list **list);
@@ -118,5 +111,7 @@ int						ft_max(char *str1, char *str2);
 void					print_map(int t);
 void					print_env(char **env_2d);
 void					ft_signal(void);
+long long int			ft_atoi_ULLI(const char *str);
+char					*ft_itoa_ULLI(ULLI n);
 
 #endif

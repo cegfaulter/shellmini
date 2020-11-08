@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int		white_digit(int c, int d)
 {
@@ -24,20 +25,20 @@ static int		white_digit(int c, int d)
 	return (-1);
 }
 
-long long		checkoverint(long long number, int sym)
+int		checkoverint(long long number, int sym)
 {
 	if (sym == 2)
 		number *= -1;
-	if ((number) / 10 > 2147483647)
+	if ((number) / 10 > 9223372036854775807)
 		return (-1);
 	else if ((number) / 10 < -2147483648)
 		return (0);
 	return (-33);
 }
 
-long long		ft_atoi(const char *str)
+int		ft_atoi(const char *str)
 {
-	long long	number;
+	long	number;
 	int			c;
 
 	number = 0;
@@ -54,8 +55,8 @@ long long		ft_atoi(const char *str)
 	{
 		number += *str - '0';
 		number *= 10;
-		// if (checkoverint(number, c) != -33)
-		// 	return (checkoverint(number, c));
+		if (checkoverint(number, c) != -33)
+		 	return ((int)checkoverint(number, c));
 		str++;
 	}
 	if (c == 2)
