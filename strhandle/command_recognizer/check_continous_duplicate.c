@@ -32,7 +32,6 @@ static int      ft_cduplicate(char *str, char c)
             return (2);
 		if (back % 2 == 0 && str[iter] == c && ft_ccheck_nexts(str + iter + 1, c))
 		{
-			iter += 1;
 			break ;
 		}
         if (str[iter] == '\\')
