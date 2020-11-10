@@ -48,7 +48,7 @@ int			main(int argc, char **argv, char **envp)
 	i = 0;
 	ft_init_data(argc, argv, envp);
 	ft_signal();
-	g_data.print_shell_line = 1;
+	g_data.print_shell_line = 0;
 	while (1)
 	{
 		g_data.error_detected = 0;
