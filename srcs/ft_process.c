@@ -48,7 +48,7 @@ void		ft_read_or_save(t_list *list, int fd)
 	{
 		if (std_in == i)
 		{
-			dup2(((t_files*)tmp->content)->fd, STDIN_FILENO); // error here can't not dup stdin with file descriptor
+			dup2(((t_files*)tmp->content)->fd, STDIN_FILENO);
 			inp = 1;
 		}
 		else if (std_out == i)
@@ -149,7 +149,6 @@ void		ft_print_multipiperesult(void)
 	tmp_args = g_data.list_args;
 	fd = -1;
 	status = 0;
-	//ft_putstr_fd(ft_itoa_llu(ft_atoi_llu("9223372036854775806")), 1);
 	while (tmp_args)
 	{
 		pipe(pipefd);
@@ -160,14 +159,18 @@ void		ft_print_multipiperesult(void)
 			ft_print_error();
 		g_data.current_pid = pid;
 		status = ft_delay_next(pid, tmp_args->next);
-
 		if (((t_command*)tmp_args->content)->builtins >= 1)
 			ft_runrightcmd(((t_command*)tmp_args->content), 0);
-		
 		if (((t_command*)tmp_args->content)->builtins == 0)
+		{
 			setv(g_map_env, "?", ft_itoa(status / 256));
+		}
 		else if (((t_command*)tmp_args->content)->builtins == -1)
+		{
 			setv(g_map_env, "?", ft_strdup("127"));
+			ft_command_not_found("command not found",
+			((t_command*)tmp_args->content)->command[0]);
+		}
 		close(pipefd[1]);
 		close(fd);
 		fd = dup(pipefd[0]);

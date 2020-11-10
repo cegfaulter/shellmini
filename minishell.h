@@ -114,5 +114,7 @@ void					ft_signal(void);
 long long int			ft_atoi_ULLI(const char *str);
 char					*ft_itoa_ULLI(ULLI n);
 char					*get_current_directory(void);
+void					ft_strerror(char *str);
+void					ft_command_not_found(char *str, char *cmd);
 
 #endif
