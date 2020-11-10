@@ -16,14 +16,19 @@ void		ft_changedirectory(t_command *item, int c)
 {
 	DIR		*pdir;
 	char	*to_directory;
+	char	*current_directory;
 
 	to_directory = item->command[1] == 0 ? get(g_map_env, "HOME") : item->command[1];
 	pdir = opendir(to_directory);
 	if (pdir != NULL)
 	{
-		setv(g_map_env, "OLDPWD", ft_getcurrentdirectory());
+		setv(g_map_env, "OLDPWD", ft_strdup(get(g_map_env, "PWD")));
 		chdir(to_directory);
-		setv(g_map_env, "PWD", ft_getcurrentdirectory());
+		current_directory = ft_getcurrentdirectory();
+		if (current_directory == NULL)
+			setv(g_map_env, "PWD", ft_strjoin(get(g_map_env, "PWD"), "/."));
+		else
+			setv(g_map_env, "PWD", current_directory);
 	}
 	else
 	{

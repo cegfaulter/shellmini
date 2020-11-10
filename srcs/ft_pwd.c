@@ -12,13 +12,25 @@
 
 #include "../minishell.h"
 
+char	*get_current_directory(void)
+{
+	char	*directory;
+	char	currentdirectory[65535];
+
+	getcwd(currentdirectory, 65535);
+	directory = get(g_map_env, "PWD");
+	if (directory == 0)
+		directory = currentdirectory;
+	return (ft_strdup(directory));
+}
+
 void	ft_pwd(int c)
 {
 	char	*directory;
 
 	if (c == 1)
 	{
-		directory = ft_getcurrentdirectory();
+		directory = get_current_directory();
 		ft_putstr_fd(directory, 1);
 		ft_putstr_fd("\n", 1);
 		free(directory);

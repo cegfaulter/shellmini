@@ -113,5 +113,6 @@ void					print_env(char **env_2d);
 void					ft_signal(void);
 long long int			ft_atoi_ULLI(const char *str);
 char					*ft_itoa_ULLI(ULLI n);
+char					*get_current_directory(void);
 
 #endif

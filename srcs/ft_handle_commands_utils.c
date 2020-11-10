@@ -15,9 +15,10 @@
 char	*ft_getcurrentdirectory(void)
 {
 	char	currentdirectory[65535];
+	char	*directory;
 
-	getcwd(currentdirectory, 65535);
-	return (ft_strdup(currentdirectory));
+	directory = getcwd(currentdirectory, 65535);
+	return (directory ? ft_strdup(directory) : NULL);
 }
 
 void	ft_checkbuiltins(char *command, int *builtins)

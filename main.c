@@ -18,7 +18,7 @@ void		print_shell_line(void)
 
 	i = 0;
 	if (g_data.print_shell_line == 1) {
-		g_data.currentdirectory = ft_getcurrentdirectory();
+		g_data.currentdirectory = get_current_directory();
 		if (g_data.home_directory != NULL)
 		{
 			if (ft_strncmp(g_data.home_directory, g_data.currentdirectory,
@@ -48,7 +48,7 @@ int			main(int argc, char **argv, char **envp)
 	i = 0;
 	ft_init_data(argc, argv, envp);
 	ft_signal();
-	g_data.print_shell_line = 0;
+	g_data.print_shell_line = 1;
 	while (1)
 	{
 		g_data.error_detected = 0;

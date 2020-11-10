@@ -146,7 +146,6 @@ t_clist     *all_commands(char *s, t_cmap *global_env)
 		setv(g_map_env, "?", ft_cstrdup("2"));
 		return (all);
 	}
-	//printf("%d | %d\n", ft_cduplicate_or(s), ft_cduplicate_semi(s));
     cmds = csplit(s, ';');
     iter = 0;
 	builtin = 0;
