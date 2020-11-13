@@ -18,22 +18,26 @@ static int      ft_cduplicate(char *str, char c)
     unsigned int    iter;
     int             back;
     unsigned int    length;
+    char            special;
 
     iter = 0;
     back =  0;
     length = strlen(str);
+    special = 0;
     if (!length)
         return (0);
     if (*str==c && *(str + 1) != c)
         return (1);
     while (iter + 1 < length)
     {
-        if (str[iter + 1] == str[iter] && str[iter] == c && back % 2 == 0)
+        if (back % 2 == 0 && !special && (str[iter] == '\'' || str[iter] == '"'))
+            special = str[iter];
+        else if (back % 2 == 0 && special == str[iter])
+            special = 0;
+        if (str[iter + 1] == str[iter] && str[iter] == c && back % 2 == 0 && !special)
             return (2);
-		if (back % 2 == 0 && str[iter] == c && ft_ccheck_nexts(str + iter + 1, c))
-		{
+		if (back % 2 == 0 && str[iter] == c && ft_ccheck_nexts(str + iter + 1, c) && !special)
 			break ;
-		}
         if (str[iter] == '\\')
             back++;
         else if (iter + 1 < length)
@@ -41,7 +45,7 @@ static int      ft_cduplicate(char *str, char c)
         iter++;
     }
 
-    if (back % 2 == 0 && str[iter] == c)
+    if (back % 2 == 0 && str[iter] == c && !special)
         return (3);
     return (0);
 }

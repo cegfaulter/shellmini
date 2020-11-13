@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:35:57 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/29 10:38:02 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:26:38 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char			*ft_csubstr(char *str, int len);
 char			*ft_cstrdup(char *str);
 void			display_data(void *data);
 //split
-void			check_special(char c, char *special, int *is_back, char sp);
+void			check_special(const char *s, int idx, char *special, int *is_back);
 char			**csplit(const char *s, char separator);
 void			free_split(char ***sp);
 //endsplit

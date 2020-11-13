@@ -6,7 +6,7 @@
 /*   By: mel-omar <mel-omar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/10 21:26:55 by mel-omar          #+#    #+#             */
-/*   Updated: 2020/10/27 11:47:27 by mel-omar         ###   ########.fr       */
+/*   Updated: 2020/11/13 13:53:00 by mel-omar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int        count_word(const char *str, char c, int  is_back)
     iter = 0;
     while (str[iter])
     {
-        check_special(str[iter], &special_char, &is_back, str[iter - 1]);
+        check_special(str, iter, &special_char, &is_back);
         if ((str[iter] == c && !is_back) && !special_char)
             looked = 1;
         if (looked)
@@ -59,11 +59,13 @@ static int     *get_length_substrings(const char *str, int c, int wc, int is_bac
         len = 0;
         while (str[iter] == c)
             iter++;
+        if (str[iter] == '\'' || str[iter] == '"')
+            special = str[iter];
         while ((str[iter] != c || is_back || special) && str[iter])
-        {
+        {            
             len++;
             iter++;
-            check_special(str[iter], &special, &is_back, str[iter - 1]);
+            check_special(str, iter, &special, &is_back);
         }
         arr[++iter_arr] = len;
     }
