@@ -76,7 +76,7 @@ int		execute_cmd(t_command *cmd)
 	status = 0;
 	if (cmd->builtins >= 1)
 		ft_runrightcmd(cmd, 1);
-	else if (cmd->builtins == 0)
+	else
 		status = execve(cmd->command[0], cmd->command, update_print_env(0));
 	return (status);
 }
@@ -165,7 +165,7 @@ void		ft_print_multipiperesult(void)
 		{
 			setv(g_map_env, "?", ft_itoa(status / 256));
 		}
-		else if (((t_command*)tmp_args->content)->builtins == -1)
+		else if (((t_command*)tmp_args->content)->builtins == -1 && status != 0)
 		{
 			setv(g_map_env, "?", ft_strdup("127"));
 			ft_command_not_found("command not found",
