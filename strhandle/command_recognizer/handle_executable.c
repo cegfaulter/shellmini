@@ -48,7 +48,7 @@ char    **parse_shabang(const char *filename)
 // execute using "gcc ../split/*.c ../gnl/*.c handle_executable.c"
 int     main(void)
 {
-    char *filename = "./file.sh";
+    char *filename = "./file.py";
     char **p = parse_shabang(filename); // function return arr 2d where the command absolute path located at index zero
 
     if (p)
