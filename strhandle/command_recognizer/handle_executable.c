@@ -46,14 +46,38 @@ char    **parse_shabang(const char *filename)
     return ((!shabang_line) ? NULL : ft_csplit(shabang_line, ' ', NULL));
 }
 // execute using "gcc ../split/*.c ../gnl/*.c handle_executable.c"
+int     get_shabang_length(const char **shabang)
+{
+    int     len;
+
+    len = 0;
+    while (shabang[len])
+        len++;
+    return (len);
+}
+
+char    **shabang_copy(const char **new_shabang, const char **old_shabang, const char *file)
+{
+    int     iter;
+
+    iter = 0;
+    while(old_shabang[iter])
+    {
+        new_shabang[iter] = new_shabang[iter];
+        iter++;
+    }
+    return (new_shabang);
+}
+
 int     main(void)
 {
     char *filename = "./file.py";
     char **p = parse_shabang(filename); // function return arr 2d where the command absolute path located at index zero
-
+    char **new_p;
     if (p)
     {
-        int a = execvp(filename, p);
+        new_p = malloc(sizeof(char) * ());
+        int a = execve(p[0], p, NULL);
         printf("%d\n", a);
     }
     return (0);
