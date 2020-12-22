@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <string.h>
+#include <unistd.h>
 #include "../gnl/get_next_line.h"
+#include "../split/ft_split.h"
 
 int     is_executable(const char *file)
 {
@@ -10,39 +13,8 @@ int     is_executable(const char *file)
     return (stat(file, &st) == 0 && st.st_mode & S_IXUSR);
 }
 
-char    *replace(char *str, char old, char *new)
-{
-    int     iter;
-    int     current_iter;
-    int     is_space;
-    char    *new_str;
 
-    iter = 0;
-    while (str[iter])
-    {
-        if (str[iter] == ' ' && !is_space)
-        {
-            new_str[current_iter] = '/';
-            is_space = 1;
-            current_iter++;
-        }
-        else if (str[iter] == '/')
-            is_space = 1;
-        else if (is_space && str[iter] == ' ')
-        {
-            while (str[iter + 1])
-            {
-                if (str[iter] == ' ')
-                    iter++;
-            }
-            is_space = 0;
-        }
-        else
-        {
 
-        }
-    }
-}
 char    *get_command_path(const char *filename)
 {
     int     fd;
@@ -51,13 +23,14 @@ char    *get_command_path(const char *filename)
 
     if (is_executable(filename))
     {
-        fd = open(filename, O_WRONLY);
-        line = get_next_line(fd, &line);
-        if (line[0] != '#' || line[1] != '!')
+        fd = open(filename, O_RDONLY);
+        get_next_line(fd, &line);
+        if (strlen(line) < 2 || line[0] != '#' || line[1] != '!')
         {
             free(line);
             return (NULL);
         }
+        new_line = malloc(sizeof(char) * (strlen(line) - 2));
         strcpy(new_line, line + 2);
         free(line);
         return (new_line);
@@ -65,7 +38,23 @@ char    *get_command_path(const char *filename)
     return (NULL);
 }
 
+char    **parse_shabang(const char *filename)
+{
+    char    *shabang_line;
+
+    shabang_line = get_command_path(filename);
+    return ((!shabang_line) ? NULL : ft_csplit(shabang_line, ' ', NULL));
+}
+// execute using "gcc ../split/*.c ../gnl/*.c handle_executable.c"
 int     main(void)
 {
+    char *filename = "./file.sh";
+    char **p = parse_shabang(filename); // function return arr 2d where the command absolute path located at index zero
+
+    if (p)
+    {
+        int a = execvp(filename, p);
+        printf("%d\n", a);
+    }
     return (0);
 }
